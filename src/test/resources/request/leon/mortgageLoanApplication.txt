@@ -1,0 +1,8 @@
+{
+  "accountnumber": "HK620001001000005086600",
+  "borringneeds": 10000,
+  "debitaccountnumber": "HK720001001000000001001",
+  "loanPeriod": 5,
+  "monthlysalary": 10000,
+  "repaymentCycle": "M"
+}

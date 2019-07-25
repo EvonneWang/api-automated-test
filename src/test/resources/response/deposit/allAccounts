@@ -1,0 +1,193 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "required": [
+    "code",
+    "msg",
+    "data"
+  ],
+  "properties": {
+    "code": {
+      "$id": "#/properties/code",
+      "type": "string",
+      "title": "The Code Schema",
+      "default": "",
+      "examples": [
+        "1"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "msg": {
+      "$id": "#/properties/msg",
+      "type": "string",
+      "title": "The Msg Schema",
+      "default": "",
+      "examples": [
+        "Search Success"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "data": {
+      "$id": "#/properties/data",
+      "type": "object",
+      "title": "The Data Schema",
+      "required": [
+        "customerNumber",
+        "customerName",
+        "account1",
+        "account2",
+        "account3",
+        "account4",
+        "account5",
+        "account6",
+        "account7",
+        "account8"
+      ],
+      "properties": {
+        "customerNumber": {
+          "$id": "#/properties/data/properties/customerNumber",
+          "type": "string",
+          "title": "The Customernumber Schema",
+          "default": "",
+          "examples": [
+            "001000000001"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "customerName": {
+          "$id": "#/properties/data/properties/customerName",
+          "type": "string",
+          "title": "The Customername Schema",
+          "default": "",
+          "examples": [
+            "Wong,Yan"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "account1": {
+          "$id": "#/properties/data/properties/account1",
+          "type": "array",
+          "title": "The Account1 Schema",
+          "items": {
+            "$id": "#/properties/data/properties/account1/items",
+            "type": "string",
+            "title": "The Items Schema",
+            "default": "",
+            "examples": [
+              "HK920001001000006239002-Current"
+            ],
+            "pattern": "^(.*)$"
+          }
+        },
+        "account2": {
+          "$id": "#/properties/data/properties/account2",
+          "type": "array",
+          "title": "The Account2 Schema",
+          "items": {
+            "$id": "#/properties/data/properties/account2/items",
+            "type": "string",
+            "title": "The Items Schema",
+            "default": "",
+            "examples": [
+              "HK820001001000000273003-FX"
+            ],
+            "pattern": "^(.*)$"
+          }
+        },
+        "account3": {
+          "$id": "#/properties/data/properties/account3",
+          "type": "array",
+          "title": "The Account3 Schema",
+          "items": {
+            "$id": "#/properties/data/properties/account3/items",
+            "type": "string",
+            "title": "The Items Schema",
+            "default": "",
+            "examples": [
+              "HK610001001000006241500-Mutual Fund"
+            ],
+            "pattern": "^(.*)$"
+          }
+        },
+        "account4": {
+          "$id": "#/properties/data/properties/account4",
+          "type": "array",
+          "title": "The Account4 Schema",
+          "items": {
+            "$id": "#/properties/data/properties/account4/items",
+            "type": "string",
+            "title": "The Items Schema",
+            "default": "",
+            "examples": [
+              "HK610001001000000004400-Precious Metal"
+            ],
+            "pattern": "^(.*)$"
+          }
+        },
+        "account5": {
+          "$id": "#/properties/data/properties/account5",
+          "type": "array",
+          "title": "The Account5 Schema",
+          "items": {
+            "$id": "#/properties/data/properties/account5/items",
+            "type": "string",
+            "title": "The Items Schema",
+            "default": "",
+            "examples": [
+              "HK860001001000006414001-Saving"
+            ],
+            "pattern": "^(.*)$"
+          }
+        },
+        "account6": {
+          "$id": "#/properties/data/properties/account6",
+          "type": "array",
+          "title": "The Account6 Schema",
+          "items": {
+            "$id": "#/properties/data/properties/account6/items",
+            "type": "string",
+            "title": "The Items Schema",
+            "default": "",
+            "examples": [
+              "HK560001001000006477300-Stock"
+            ],
+            "pattern": "^(.*)$"
+          }
+        },
+        "account7": {
+          "$id": "#/properties/data/properties/account7",
+          "type": "array",
+          "title": "The Account7 Schema",
+          "items": {
+            "$id": "#/properties/data/properties/account7/items",
+            "type": "string",
+            "title": "The Items Schema",
+            "default": "",
+            "examples": [
+              "HK450001001000006348100-TermDeposit"
+            ],
+            "pattern": "^(.*)$"
+          }
+        },
+        "account8": {
+          "$id": "#/properties/data/properties/account8",
+          "type": "array",
+          "title": "The Account8 Schema",
+          "items": {
+            "$id": "#/properties/data/properties/account8/items",
+            "type": "string",
+            "title": "The Items Schema",
+            "default": "",
+            "examples": [
+              "5000010000012813-CreditCard"
+            ],
+            "pattern": "^(.*)$"
+          }
+        }
+      }
+    }
+  }
+}

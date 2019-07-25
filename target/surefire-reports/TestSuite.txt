@@ -1,0 +1,222 @@
+-------------------------------------------------------------------------------
+Test set: TestSuite
+-------------------------------------------------------------------------------
+Tests run: 103, Failures: 24, Errors: 0, Skipped: 0, Time elapsed: 32.348 sec <<< FAILURE! - in TestSuite
+depositAccountEnquiryAllAccountGet(api.DepositApiTest)  Time elapsed: 0.549 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertTrue(Assert.java:42)
+	at org.testng.Assert.assertTrue(Assert.java:52)
+	at common.JsonSchemaUtils.assertJsonSchema(JsonSchemaUtils.java:34)
+	at common.JsonSchemaUtils.assertResponseJsonSchema(JsonSchemaUtils.java:40)
+	at api.DepositApiTest.depositAccountEnquiryAllAccountGet(DepositApiTest.java:111)
+
+depositAccountEnquiryPost(api.DepositApiTest)  Time elapsed: 0.094 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [400]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.DepositApiTest.depositAccountEnquiryPost(DepositApiTest.java:88)
+
+depositTermDepositTermDepositDrawDownPost(api.DepositApiTest)  Time elapsed: 0.162 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [202]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.DepositApiTest.depositTermDepositTermDepositDrawDownPost(DepositApiTest.java:353)
+
+depositTermDepositTermDepositRenewalPost(api.DepositApiTest)  Time elapsed: 0.168 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [202]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.DepositApiTest.depositTermDepositTermDepositRenewalPost(DepositApiTest.java:385)
+
+depositAccountEnquiryAccountDetailsGet(api.ForeignExchangeApiTest)  Time elapsed: 0.339 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [415]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.ForeignExchangeApiTest.depositAccountEnquiryAccountDetailsGet(ForeignExchangeApiTest.java:35)
+
+investmentCancellationPost(api.InvestmentApiTest)  Time elapsed: 0.481 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [404]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.InvestmentApiTest.investmentCancellationPost(InvestmentApiTest.java:138)
+
+investmentFundAccountOpeningPost(api.InvestmentApiTest)  Time elapsed: 0.312 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [403]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.InvestmentApiTest.investmentFundAccountOpeningPost(InvestmentApiTest.java:57)
+
+investmentHoldingEnquiryPost(api.InvestmentApiTest)  Time elapsed: 0.089 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [403]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.InvestmentApiTest.investmentHoldingEnquiryPost(InvestmentApiTest.java:76)
+
+investmentOrderInfoUpdatePost(api.InvestmentApiTest)  Time elapsed: 0.084 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [403]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.InvestmentApiTest.investmentOrderInfoUpdatePost(InvestmentApiTest.java:177)
+
+investmentOrderPlacingPost(api.InvestmentApiTest)  Time elapsed: 0.147 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [202]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.InvestmentApiTest.investmentOrderPlacingPost(InvestmentApiTest.java:238)
+
+investmentOrderRetrievalPost(api.InvestmentApiTest)  Time elapsed: 0.085 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [403]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.InvestmentApiTest.investmentOrderRetrievalPost(InvestmentApiTest.java:196)
+
+investmentOrderStatusUpdatePost(api.InvestmentApiTest)  Time elapsed: 0.127 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [202]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.InvestmentApiTest.investmentOrderStatusUpdatePost(InvestmentApiTest.java:216)
+
+investmentRedemptionPost(api.InvestmentApiTest)  Time elapsed: 0.115 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [403]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.InvestmentApiTest.investmentRedemptionPost(InvestmentApiTest.java:95)
+
+investmentStkAccountOpeningPost(api.InvestmentApiTest)  Time elapsed: 0.095 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [403]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.InvestmentApiTest.investmentStkAccountOpeningPost(InvestmentApiTest.java:276)
+
+investmentStockQuotationPost(api.InvestmentApiTest)  Time elapsed: 0.044 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [403]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.InvestmentApiTest.investmentStockQuotationPost(InvestmentApiTest.java:335)
+
+leonMortageCancellationPost(api.LoadApiTest)  Time elapsed: 0.098 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [500]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.LoadApiTest.leonMortageCancellationPost(LoadApiTest.java:66)
+
+leonMortageMortgageLoanApplicationPost(api.LoadApiTest)  Time elapsed: 0.076 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [500]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.LoadApiTest.leonMortageMortgageLoanApplicationPost(LoadApiTest.java:120)
+
+sysadminAuthorityControllerAppDockerForDeveloperPost(api.SysadminApiTest)  Time elapsed: 0.239 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [500]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.SysadminApiTest.sysadminAuthorityControllerAppDockerForDeveloperPost(SysadminApiTest.java:56)
+
+sysadminBranchCodeSearchControllerGetBranchCodeTableInfoPost(api.SysadminApiTest)  Time elapsed: 1.975 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertTrue(Assert.java:42)
+	at org.testng.Assert.assertTrue(Assert.java:52)
+	at common.JsonSchemaUtils.assertJsonSchema(JsonSchemaUtils.java:34)
+	at common.JsonSchemaUtils.assertResponseJsonSchema(JsonSchemaUtils.java:40)
+	at api.SysadminApiTest.sysadminBranchCodeSearchControllerGetBranchCodeTableInfoPost(SysadminApiTest.java:132)
+
+sysadminLbsSdkControllerDownloadsdkGet(api.SysadminApiTest)  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [500]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.SysadminApiTest.sysadminLbsSdkControllerDownloadsdkGet(SysadminApiTest.java:190)
+
+sysadminLoginControllerAuthorizeGet(api.SysadminApiTest)  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [403]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.SysadminApiTest.sysadminLoginControllerAuthorizeGet(SysadminApiTest.java:211)
+
+sysadminLoginControllerLoginInPost(api.SysadminApiTest)  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [202]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.SysadminApiTest.sysadminLoginControllerLoginInPost(SysadminApiTest.java:229)
+
+sysadminLoginControllerUserCreationPost(api.SysadminApiTest)  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [202]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.SysadminApiTest.sysadminLoginControllerUserCreationPost(SysadminApiTest.java:245)
+
+sysadminSandBoxSearchControllerGetSandBoxTableInfoPost(api.SysadminApiTest)  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.AssertionError: expected [200] but found [404]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:370)
+	at org.testng.Assert.assertEquals(Assert.java:380)
+	at api.SysadminApiTest.sysadminSandBoxSearchControllerGetSandBoxTableInfoPost(SysadminApiTest.java:279)
+
