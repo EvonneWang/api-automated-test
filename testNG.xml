@@ -16,4 +16,7 @@
             <class name="api.SysadminApiTest"/>
         </classes>
     </test>
+    <listeners>
+        <listener class-name="reporter.listener.ExtentTestNGIReporterListener"/>
+    </listeners>
 </suite>
