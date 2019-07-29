@@ -21,7 +21,7 @@ import org.testng.xml.XmlSuite;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-//import com.aventstack.extentreports.reporter.configuration.ChartLocation;
+import com.aventstack.extentreports.reporter.configuration.ChartLocation;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
 public class ExtentTestNGIReporterListener implements IReporter {
@@ -103,9 +103,9 @@ public class ExtentTestNGIReporterListener implements IReporter {
             }
 
         }
-//        for (String s : Reporter.getOutput()) {
-//            extent.setTestRunnerOutput(s);
-//        }
+        for (String s : Reporter.getOutput()) {
+            extent.setTestRunnerOutput(s);
+        }
 
         extent.flush();
     }
@@ -120,10 +120,13 @@ public class ExtentTestNGIReporterListener implements IReporter {
         // 设置静态文件的DNS
         //怎么样解决cdn.rawgit.com访问不了的情况
         htmlReporter.config().setResourceCDN(ResourceCDN.EXTENTREPORTS);
-
-        htmlReporter.config().setDocumentTitle("api自动化测试报告");
-        htmlReporter.config().setReportName("api自动化测试报告");
+        htmlReporter.config().setDocumentTitle("LBS api report");
+        htmlReporter.config().setReportName("LBS api report");
         htmlReporter.config().setChartVisibilityOnOpen(true);
+        htmlReporter.config().setCSS("css-string");
+        htmlReporter.config().setDocumentTitle("page title");
+        htmlReporter.config().setEncoding("utf-8");
+        htmlReporter.config().setJS("js-string");
         htmlReporter.config().setTestViewChartLocation(ChartLocation.TOP);
         htmlReporter.config().setTheme(Theme.STANDARD);
         htmlReporter.config().setCSS(".node.level-1  ul{ display:none;} .node.level-1.active ul{display:block;}");
