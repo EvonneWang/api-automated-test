@@ -8,12 +8,7 @@
             </run>
         </groups>
         <classes>
-            <class name="api.CreditCardApiTest"/>
-            <class name="api.DepositApiTest"/>
             <class name="api.ForeignExchangeApiTest"/>
-            <class name="api.InvestmentApiTest"/>
-            <class name="api.LoadApiTest"/>
-            <class name="api.SysadminApiTest"/>
         </classes>
     </test>
     <listeners>

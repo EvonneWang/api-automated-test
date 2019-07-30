@@ -1,5 +1,6 @@
 E:\project\OBApi\src\test\java\api\SysadminApiTest.java
 E:\project\OBApi\src\test\java\api\DefaultApiTest.java
+E:\project\OBApi\src\test\java\reporter\listener\ExtentTestNGITestListener.java
 E:\project\OBApi\src\test\java\service\Hook.java
 E:\project\OBApi\src\test\java\service\impl\Hook.java
 E:\project\OBApi\src\test\java\api\CreditCardApiTest.java
@@ -10,5 +11,6 @@ E:\project\OBApi\src\test\java\common\JsonSchemaUtils.java
 E:\project\OBApi\src\test\java\service\IHook.java
 E:\project\OBApi\src\test\java\api\InvestmentApiTest.java
 E:\project\OBApi\src\test\java\common\Util.java
+E:\project\OBApi\src\test\java\reporter\listener\ExtentTestNGIReporterListener.java
 E:\project\OBApi\src\test\java\api\LoadApiTest.java
 E:\project\OBApi\src\test\java\model\DataVO.java

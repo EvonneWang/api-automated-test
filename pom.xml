@@ -7,6 +7,10 @@
     <groupId>com.OB</groupId>
     <artifactId>OB-Api</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <xmlFileName></xmlFileName>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -121,7 +125,8 @@
                     <includes>
                         <include>**/*Tests.java</include>
                     </includes>
-                </configuration>
+                    <suiteXmlFiles>src/test/testNG/${xmlFileName}</suiteXmlFiles>
+        </configuration>
             </plugin>
         </plugins>
     </build>
