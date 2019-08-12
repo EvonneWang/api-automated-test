@@ -1,5 +1,11 @@
 package api;
 
+import com.github.fge.jsonschema.cfg.ValidationConfiguration;
+import com.github.fge.jsonschema.main.JsonSchemaFactory;
+import com.google.gson.JsonObject;
+import io.restassured.RestAssured;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import common.JsonSchemaUtils;
 import common.Util;
 import model.DataVO;
@@ -11,15 +17,18 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 
+import static com.github.fge.jsonschema.SchemaVersion.DRAFTV4;
+
 public class LoadApiTest {
 
-    String baseURL = "http://47.112.134.188:8086/loan/";
-    //    String baseURL = "http://3.130.122.199:8086/deposit/";
-
+    //    String baseURL = "http://47.112.134.188:8086/loan/";
+    String baseURL = "http://3.130.122.199:8086/loan/";
+    JsonSchemaFactory jsonschemaemaFactory = null;
     DataVO data = new DataVO();
 
     LoadApiTest() {
@@ -35,8 +44,13 @@ public class LoadApiTest {
         post.setHeader("clientid", data.getClientid());
     }
 
+    @BeforeClass
+    public void setUp() {
+        RestAssured.baseURI = "http://3.130.122.199:8086/foreignexchange/";
+        jsonschemaemaFactory = JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV4).freeze()).freeze();
+    }
 
-    @Test(groups = {"all","mortgage-loan"})
+    @Test(groups = {"all", "mortgage-loan"})
     public void leonMortageAccountDetailEnquiryPost() {
         CloseableHttpClient httpclient = HttpClientBuilder.create().build();
         HttpPost post = new HttpPost(baseURL + "mortgage/accountDetailEnquiry");
@@ -46,7 +60,7 @@ public class LoadApiTest {
             CloseableHttpResponse response = httpclient.execute(post);
             String res = EntityUtils.toString(response.getEntity());
             Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/leon/accountDetailEnquiry", "res");
+            JsonSchemaUtils.assertResponseJsonSchema("/response/leon/accountDetailEnquiry", res);
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -54,17 +68,19 @@ public class LoadApiTest {
         }
     }
 
-    @Test(groups = {"all","mortgage-loan","error"})
+    @Test(groups = {"all", "mortgage-loan"}, dependsOnMethods = "leonMortageMortgageLoanAccountOpeningPost")
     public void leonMortageCancellationPost() {
         CloseableHttpClient httpclient = HttpClientBuilder.create().build();
         HttpPost post = new HttpPost(baseURL + "mortgage/cancellation");
         setPostHeader(post, data);
         try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/leon/cancellation.txt"), "UTF-8"));
+            JSONObject requestObj = Util.getObject("/request/leon/cancellation.txt");
+            requestObj.put("accountnumber", data.getLeonAccount());
+            post.setEntity(new StringEntity(requestObj.toString(), "UTF-8"));
             CloseableHttpResponse response = httpclient.execute(post);
             String res = EntityUtils.toString(response.getEntity());
             Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/leon/cancellation", "res");
+            JsonSchemaUtils.assertResponseJsonSchema("/response/leon/cancellation", res);
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -72,7 +88,7 @@ public class LoadApiTest {
         }
     }
 
-    @Test(groups = {"all","mortgage-loan"})
+    @Test(groups = {"all", "mortgage-loan"})
     public void leonMortageLoanCalculaterPost() {
         CloseableHttpClient httpclient = HttpClientBuilder.create().build();
         HttpPost post = new HttpPost(baseURL + "mortgage/loanCalculater");
@@ -82,7 +98,7 @@ public class LoadApiTest {
             CloseableHttpResponse response = httpclient.execute(post);
             String res = EntityUtils.toString(response.getEntity());
             Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/leon/loanCalculater", "res");
+            JsonSchemaUtils.assertResponseJsonSchema("/response/leon/loanCalculater", res);
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -90,7 +106,7 @@ public class LoadApiTest {
         }
     }
 
-    @Test(groups = {"all","mortgage-loan"})
+    @Test(groups = {"all", "mortgage-loan"})
     public void leonMortageMortgageLoanAccountOpeningPost() {
         CloseableHttpClient httpclient = HttpClientBuilder.create().build();
         HttpPost post = new HttpPost(baseURL + "mortgage/mortgageLoanAccountOpening");
@@ -100,7 +116,8 @@ public class LoadApiTest {
             CloseableHttpResponse response = httpclient.execute(post);
             String res = EntityUtils.toString(response.getEntity());
             Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/leon/mortgageLoanAccountOpening", "res");
+            JsonSchemaUtils.assertResponseJsonSchema("/response/leon/mortgageLoanAccountOpening", res);
+            data.setLeonAccount(JSONObject.fromObject(res).getString("data"));
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -108,7 +125,7 @@ public class LoadApiTest {
         }
     }
 
-    @Test(groups = {"all","mortgage-loan"})
+    @Test(groups = {"all", "mortgage-loan"})
     public void leonMortageMortgageLoanApplicationPost() {
         CloseableHttpClient httpclient = HttpClientBuilder.create().build();
         HttpPost post = new HttpPost(baseURL + "mortgage/mortgageLoanApplication");
@@ -118,7 +135,7 @@ public class LoadApiTest {
             CloseableHttpResponse response = httpclient.execute(post);
             String res = EntityUtils.toString(response.getEntity());
             Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/leon/mortgageLoanApplication", "res");
+            JsonSchemaUtils.assertResponseJsonSchema("/response/leon/mortgageLoanApplication", res);
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -126,7 +143,7 @@ public class LoadApiTest {
         }
     }
 
-    @Test(groups = {"all","mortgage-loan"})
+    @Test(groups = {"all", "mortgage-loan"})
     public void leonMortageNextRepaymentEnquiryPost() {
         CloseableHttpClient httpclient = HttpClientBuilder.create().build();
         HttpPost post = new HttpPost(baseURL + "mortgage/nextRepaymentEnquiry");
@@ -136,7 +153,7 @@ public class LoadApiTest {
             CloseableHttpResponse response = httpclient.execute(post);
             String res = EntityUtils.toString(response.getEntity());
             Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/leon/nextRepaymentEnquiry", "res");
+            JsonSchemaUtils.assertResponseJsonSchema("/response/leon/nextRepaymentEnquiry", res);
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -144,7 +161,7 @@ public class LoadApiTest {
         }
     }
 
-    @Test(groups = {"all","mortgage-loan","error"})
+    @Test(groups = {"all", "mortgage-loan"})
     public void leonMortageOverDueRepaymentEnquiryPost() {
         CloseableHttpClient httpclient = HttpClientBuilder.create().build();
         HttpPost post = new HttpPost(baseURL + "mortgage/overDueRepaymentEnquiry");
@@ -154,7 +171,10 @@ public class LoadApiTest {
             CloseableHttpResponse response = httpclient.execute(post);
             String res = EntityUtils.toString(response.getEntity());
             Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/leon/overDueRepaymentEnquiry", "res");
+            JsonSchemaUtils.assertResponseJsonSchema("/response/leon/overDueRepaymentEnquiry", res);
+            Object obj = JSONObject.fromObject(res).getJSONObject("data").get("outstandingrepayment");
+            JSONArray jsonArray = JSONArray.fromObject(obj);
+            data.setTotalpayment(jsonArray.getJSONObject(0).get("totalpayment").toString());
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -162,17 +182,19 @@ public class LoadApiTest {
         }
     }
 
-    @Test(groups = {"all","mortgage-loan"})
+    @Test(groups = {"all", "mortgage-loan"}, dependsOnMethods = "leonMortageOverDueRepaymentEnquiryPost")
     public void leonMortageRepaymentPost() {
         CloseableHttpClient httpclient = HttpClientBuilder.create().build();
         HttpPost post = new HttpPost(baseURL + "mortgage/repayment");
         setPostHeader(post, data);
         try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/leon/repayment.txt"), "UTF-8"));
+            JSONObject obj = Util.getObject("/request/leon/repayment.txt");
+            obj.put("repaymentamount", data.getTotalpayment());
+            post.setEntity(new StringEntity(obj.toString(), "UTF-8"));
             CloseableHttpResponse response = httpclient.execute(post);
             String res = EntityUtils.toString(response.getEntity());
             Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/leon/repayment", "res");
+            JsonSchemaUtils.assertResponseJsonSchema("/response/leon/repayment", res);
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -180,7 +202,7 @@ public class LoadApiTest {
         }
     }
 
-    @Test(groups = {"all","mortgage-loan"})
+    @Test(groups = {"all", "mortgage-loan"})
     public void leonMortageRepaymentPlanPost() {
         CloseableHttpClient httpclient = HttpClientBuilder.create().build();
         HttpPost post = new HttpPost(baseURL + "mortgage/repaymentPlan");
@@ -190,7 +212,7 @@ public class LoadApiTest {
             CloseableHttpResponse response = httpclient.execute(post);
             String res = EntityUtils.toString(response.getEntity());
             Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/leon/repaymentPlan", "res");
+            JsonSchemaUtils.assertResponseJsonSchema("/response/leon/repaymentPlan", res);
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -198,7 +220,7 @@ public class LoadApiTest {
         }
     }
 
-    @Test(groups = {"all","mortgage-loan"})
+    @Test(groups = {"all", "mortgage-loan"})
     public void leonMortageTransactionEnquiryPost() {
         CloseableHttpClient httpclient = HttpClientBuilder.create().build();
         HttpPost post = new HttpPost(baseURL + "mortgage/transactionEnquiry");
@@ -208,7 +230,7 @@ public class LoadApiTest {
             CloseableHttpResponse response = httpclient.execute(post);
             String res = EntityUtils.toString(response.getEntity());
             Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/leon/transactionEnquiry", "res");
+            JsonSchemaUtils.assertResponseJsonSchema("/response/leon/transactionEnquiry", res);
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {

@@ -42,7 +42,7 @@
       "properties": {
         "maxLoanAmount": {
           "$id": "#/properties/data/properties/maxLoanAmount",
-          "type": "integer",
+          "type": "number",
           "title": "The Maxloanamount Schema",
           "default": 0,
           "examples": [
@@ -74,7 +74,7 @@
             },
             "repaymentPerPhase": {
               "$id": "#/properties/data/properties/repaymentByMonth/properties/repaymentPerPhase",
-              "type": "integer",
+              "type": "number",
               "title": "The Repaymentperphase Schema",
               "default": 0,
               "examples": [
@@ -83,7 +83,7 @@
             },
             "loanPeriod": {
               "$id": "#/properties/data/properties/repaymentByMonth/properties/loanPeriod",
-              "type": "integer",
+              "type": "number",
               "title": "The Loanperiod Schema",
               "default": 0,
               "examples": [
@@ -92,7 +92,7 @@
             },
             "totalPhase": {
               "$id": "#/properties/data/properties/repaymentByMonth/properties/totalPhase",
-              "type": "integer",
+              "type": "number",
               "title": "The Totalphase Schema",
               "default": 0,
               "examples": [
@@ -101,7 +101,7 @@
             },
             "totalInterestPayable": {
               "$id": "#/properties/data/properties/repaymentByMonth/properties/totalInterestPayable",
-              "type": "integer",
+              "type": "number",
               "title": "The Totalinterestpayable Schema",
               "default": 0,
               "examples": [
@@ -110,7 +110,7 @@
             },
             "totalRepaymentAmount": {
               "$id": "#/properties/data/properties/repaymentByMonth/properties/totalRepaymentAmount",
-              "type": "integer",
+              "type": "number",
               "title": "The Totalrepaymentamount Schema",
               "default": 0,
               "examples": [
@@ -144,7 +144,7 @@
             },
             "repaymentPerPhase": {
               "$id": "#/properties/data/properties/repaymentByFortnight/properties/repaymentPerPhase",
-              "type": "integer",
+              "type": "number",
               "title": "The Repaymentperphase Schema",
               "default": 0,
               "examples": [
@@ -162,7 +162,7 @@
             },
             "totalPhase": {
               "$id": "#/properties/data/properties/repaymentByFortnight/properties/totalPhase",
-              "type": "integer",
+              "type": "number",
               "title": "The Totalphase Schema",
               "default": 0,
               "examples": [
@@ -171,7 +171,7 @@
             },
             "totalInterestPayable": {
               "$id": "#/properties/data/properties/repaymentByFortnight/properties/totalInterestPayable",
-              "type": "integer",
+              "type": "number",
               "title": "The Totalinterestpayable Schema",
               "default": 0,
               "examples": [
@@ -180,7 +180,7 @@
             },
             "totalRepaymentAmount": {
               "$id": "#/properties/data/properties/repaymentByFortnight/properties/totalRepaymentAmount",
-              "type": "integer",
+              "type": "number",
               "title": "The Totalrepaymentamount Schema",
               "default": 0,
               "examples": [

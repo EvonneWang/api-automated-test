@@ -1,5 +1,6 @@
 package common;
 
+import model.DataVO;
 import net.sf.json.JSONObject;
 
 import java.io.*;
@@ -35,6 +36,21 @@ public class Util {
 
     public static int getRandomCustomerId() {
 //        int r3 = new Random().nextInt(6);
-       return  ((int)((Math.random()*9+1)*100000));
+        return ((int) ((Math.random() * 9 + 1) * 100000));
+    }
+
+    public static JSONObject setHeader(DataVO dataVO) {
+        JSONObject params = new JSONObject();
+        params.put("content-type", "application/json");
+        if (dataVO.getToken() != null) {
+            params.put("token", dataVO.getToken());
+        }
+        if (dataVO.getMessageid() != null) {
+            params.put("messageid", dataVO.getMessageid());
+        }
+        if (dataVO.getClientid() != null) {
+            params.put("clientid", dataVO.getClientid());
+        }
+        return params;
     }
 }

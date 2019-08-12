@@ -100,7 +100,7 @@
               },
               "phaseno": {
                 "$id": "#/properties/data/properties/transactionDetail/items/properties/phaseno",
-                "type": "string",
+                "type": ["string", "null"],
                 "title": "The Phaseno Schema",
                 "default": "",
                 "examples": [
@@ -120,7 +120,7 @@
               },
               "tranamt": {
                 "$id": "#/properties/data/properties/transactionDetail/items/properties/tranamt",
-                "type": "integer",
+                "type": "number",
                 "title": "The Tranamt Schema",
                 "default": 0,
                 "examples": [

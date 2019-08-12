@@ -12,7 +12,7 @@
   "properties": {
     "code": {
       "$id": "#/properties/code",
-      "type": "integer",
+      "type": "string",
       "title": "The Code Schema",
       "default": "",
       "examples": [
@@ -75,7 +75,7 @@
         },
         "interestamount": {
           "$id": "#/properties/data/properties/interestamount",
-          "type": "integer",
+          "type": "number",
           "title": "The Interestamount Schema",
           "default": 0,
           "examples": [
@@ -84,7 +84,7 @@
         },
         "loanAmount": {
           "$id": "#/properties/data/properties/loanAmount",
-          "type": "integer",
+          "type": "number",
           "title": "The Loanamount Schema",
           "default": 0,
           "examples": [
@@ -93,7 +93,7 @@
         },
         "penatlyAmount": {
           "$id": "#/properties/data/properties/penatlyAmount",
-          "type": "integer",
+          "type": "number",
           "title": "The Penatlyamount Schema",
           "default": 0,
           "examples": [
@@ -102,7 +102,7 @@
         },
         "loanperiod": {
           "$id": "#/properties/data/properties/loanperiod",
-          "type": "integer",
+          "type": "number",
           "title": "The Loanperiod Schema",
           "default": 0,
           "examples": [

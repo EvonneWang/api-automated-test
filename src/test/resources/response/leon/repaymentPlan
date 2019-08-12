@@ -108,7 +108,7 @@
               },
               "totalpayment": {
                 "$id": "#/properties/data/properties/contractPlan/items/properties/totalpayment",
-                "type": "integer",
+                "type": "number",
                 "title": "The Totalpayment Schema",
                 "default": 0,
                 "examples": [

@@ -5,6 +5,16 @@ public class DataVO {
     String messageid;
     String clientid;
     String creditCardNumber;
+    String leonAccount;
+    String totalpayment;
+
+    public String getTotalpayment() {
+        return totalpayment;
+    }
+
+    public void setTotalpayment(String totalpayment) {
+        this.totalpayment = totalpayment;
+    }
 
     public String getToken() {
         return token;
@@ -36,5 +46,13 @@ public class DataVO {
 
     public void setCreditCardNumber(String creditCardNumber) {
         this.creditCardNumber = creditCardNumber;
+    }
+
+    public String getLeonAccount() {
+        return leonAccount;
+    }
+
+    public void setLeonAccount(String leonAccount) {
+        this.leonAccount = leonAccount;
     }
 }
