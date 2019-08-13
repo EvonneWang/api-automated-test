@@ -12,7 +12,7 @@
             <class name="api.DepositApiTest"/>
             <class name="api.ForeignExchangeApiTest"/>
             <class name="api.InvestmentApiTest"/>
-            <class name="api.LoadApiTest"/>
+            <class name="api.LoanApiTest"/>
             <class name="api.SysadminApiTest"/>
         </classes>
     </test>

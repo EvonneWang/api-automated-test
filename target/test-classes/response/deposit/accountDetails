@@ -148,7 +148,7 @@
               "title": "The Gender Schema",
               "default": "",
               "examples": [
-                "M"
+                "Male"
               ],
               "pattern": "^(.*)$"
             },
@@ -168,7 +168,7 @@
               "title": "The Permanentresidencestatus Schema",
               "default": "",
               "examples": [
-                "Y"
+                "Yes"
               ],
               "pattern": "^(.*)$"
             },
@@ -178,7 +178,7 @@
               "title": "The Maritalstatus Schema",
               "default": "",
               "examples": [
-                "S"
+                "Single"
               ],
               "pattern": "^(.*)$"
             },
@@ -188,7 +188,7 @@
               "title": "The Education Schema",
               "default": "",
               "examples": [
-                "U"
+                "University"
               ],
               "pattern": "^(.*)$"
             },
@@ -238,7 +238,7 @@
               "title": "The Accommodation Schema",
               "default": "",
               "examples": [
-                "S"
+                "Self Owned"
               ],
               "pattern": "^(.*)$"
             },
@@ -386,7 +386,7 @@
               "title": "The Availablebalance Schema",
               "default": 0.0,
               "examples": [
-                7329162.81
+                119449.92
               ]
             },
             "ledgerbalance": {
@@ -395,7 +395,7 @@
               "title": "The Ledgerbalance Schema",
               "default": 0.0,
               "examples": [
-                7330614.25
+                171845.51
               ]
             },
             "holdingbalance": {
@@ -404,7 +404,7 @@
               "title": "The Holdingbalance Schema",
               "default": 0.0,
               "examples": [
-                1451.44
+                49091.99
               ]
             },
             "fexbalance": {
@@ -422,7 +422,7 @@
               "title": "The Lastupdateddate Schema",
               "default": "",
               "examples": [
-                "1562845271521"
+                "1565593868345"
               ],
               "pattern": "^(.*)$"
             },
@@ -458,3 +458,4 @@
       }
     }
   }
+}

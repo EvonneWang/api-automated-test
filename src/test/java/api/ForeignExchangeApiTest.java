@@ -68,6 +68,6 @@ public class ForeignExchangeApiTest {
                 .headers(Util.setHeader(data))
                 .body(Util.getObject("/request/foreignExchange/foreignExchange.txt"))
                 .post("foreignExchange/foreignExchange").then().statusCode(200)
-                .body(matchesJsonSchemaInClasspath("./response/foreignExchange/foreignExchange").using(jsonschemaemaFactory));
+                .body(matchesJsonSchemaInClasspath("response/foreignExchange/foreignExchange").using(jsonschemaemaFactory));
     }
 }

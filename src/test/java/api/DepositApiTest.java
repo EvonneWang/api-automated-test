@@ -1,6 +1,9 @@
 package api;
 
+import com.github.fge.jsonschema.cfg.ValidationConfiguration;
+import com.github.fge.jsonschema.main.JsonSchemaFactory;
 import common.JsonSchemaUtils;
+import io.restassured.RestAssured;
 import model.DataVO;
 import common.Util;
 import net.sf.json.JSONObject;
@@ -14,16 +17,20 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 
-public class DepositApiTest {
-    String baseURL = "http://134.175.161.212:8086/deposit/";
-//    String baseURL = "http://3.130.122.199:8086/deposit/";
+import static com.github.fge.jsonschema.SchemaVersion.DRAFTV4;
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
+public class DepositApiTest {
+
+    JsonSchemaFactory jsonschemaemaFactory = null;
     DataVO data = new DataVO();
 
     DepositApiTest() {
@@ -32,258 +39,156 @@ public class DepositApiTest {
         data.setMessageid("006f7113e5fa48559549c4dfe74e2cd6");
     }
 
-    private void setPostHeader(HttpPost post, DataVO data) {
-        post.setHeader("content-type", "application/json");
-        post.setHeader("token", data.getToken());
-        post.setHeader("messageid", data.getMessageid());
-        post.setHeader("clientid", data.getClientid());
-    }
-
-    private void setGetHeader(HttpGet get, DataVO data) {
-//        setGetHeader(get, data);
-        get.setHeader("content-type", "application/json");
-        get.setHeader("token", data.getToken());
-        get.setHeader("messageid", data.getMessageid());
-        get.setHeader("clientid", data.getClientid());
+    @BeforeClass
+    public void setUp() {
+        RestAssured.baseURI = "http://3.130.122.199:8086/deposit/";
+        jsonschemaemaFactory = JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV4).freeze()).freeze();
     }
 
     /***
      * @account-enquiry
      */
-    @Test(groups = {"all","account-enquiry"})
-    public void depositAccountEnquiryAccountDetailsGet() {
-        CloseableHttpClient httpclient = HttpClientBuilder.create().build();
+    @Test(enabled = true, groups = {"all", "account-enquiry"})
+    public void depositAccountEnquiryAccountDetailsGet() throws IOException {
         String accountNumber = "HK720001001000000001001";
-
-        String url = baseURL + "deposit/account/accountDetails/" + accountNumber;
-
-        try {
-            URIBuilder uriBuilder = new URIBuilder(url);
-            HttpGet get = new HttpGet(uriBuilder.build());
-            setGetHeader(get, data);
-            CloseableHttpResponse response = httpclient.execute(get);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/accountDetails", str);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        given()
+                .headers(Util.setHeader(data))
+                .get("deposit/account/accountDetails/" + accountNumber)
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/accountDetails").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","account-enquiry"})
-    public void depositAccountEnquiryPost() {
-        CloseableHttpClient httpclient = HttpClientBuilder.create().build();
-        JSONObject paramASE = new JSONObject();
-        paramASE.put("accountnumber", "HK720001001000000001001");
-        JSONObject params = new JSONObject();
-        params.put("ase", paramASE);
-        HttpPost post = new HttpPost(baseURL + "deposit/account/accountNumberValidation");
-        setPostHeader(post, data);
-        try {
-            CloseableHttpResponse response = httpclient.execute(post);
-            String res = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/accountNumberValidation", res);
-
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "account-enquiry"})
+    public void depositAccountEnquiryPost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/accountNumberValidation.txt"))
+                .post("deposit/account/accountNumberValidation")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/accountNumberValidation").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","account-enquiry"})
+    @Test(enabled = true, groups = {"all", "account-enquiry"})
     public void depositAccountEnquiryAllAccountGet() {
-        CloseableHttpClient httpclient = HttpClientBuilder.create().build();
         String customerNumber = "001000000001";
-        String url = baseURL + "deposit/account/allAccounts/" + customerNumber;
-        try {
-            URIBuilder uriBuilder = new URIBuilder(url);
-//            uriBuilder.setParameters(params);
-            HttpGet get = new HttpGet(uriBuilder.build());
-            setGetHeader(get, data);
-            CloseableHttpResponse response = httpclient.execute(get);
-            String res = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/allAccounts", res);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        given()
+                .headers(Util.setHeader(data))
+                .get("deposit/account/allAccounts/" + customerNumber)
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/allAccounts").using(jsonschemaemaFactory));
     }
 
     /**
      * @account-maintenance
      */
-    @Test(groups = {"all","account-maintenance"})
+    @Test(enabled = true, groups = {"all", "account-maintenance"})
     public void depositAccountMaintenanceAccountClosureGet() {
-        CloseableHttpClient httpclient = HttpClientBuilder.create().build();
         String accountNumber = "HK920001001000006239002";
-        String url = baseURL + "deposit/account/accountClosure/" + accountNumber;
-        try {
-            URIBuilder uriBuilder = new URIBuilder(url);
-//            uriBuilder.setParameters(params);
-            HttpGet get = new HttpGet(uriBuilder.build());
-            setGetHeader(get, data);
-            CloseableHttpResponse response = httpclient.execute(get);
-            String res = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/accountClosure", res);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        given()
+                .headers(Util.setHeader(data))
+                .get("deposit/account/accountClosure/" + accountNumber)
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/accountClosure").using(jsonschemaemaFactory));
     }
 
     /**
      * @account-opening
      */
-    @Test(groups = {"all","account-opening"})
-    public void depositAccountOpeningAccountCreationPost() {
-        CloseableHttpClient httpclient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/account/accountCreation");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/accountCreation.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpclient.execute(post);
-            String res = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/accountCreation", "res");
-
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "account-opening"})
+    public void depositAccountOpeningAccountCreationPost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/accountCreation.txt"))
+                .post("deposit/account/accountCreation")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/accountCreation").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","account-opening"})
-    public void depositCurrentAccountOpeningPost() {
-        CloseableHttpClient httpclient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/account/currentAccountOpening");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/currentAccountOpening.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpclient.execute(post);
-            String res = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/currentAccountOpening", "res");
-
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "account-opening"})
+    public void depositCurrentAccountOpeningPost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/currentAccountOpening.txt"))
+                .post("deposit/account/currentAccountOpening")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/currentAccountOpening").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","account-opening"})
-    public void depositFeAccountOpeningPost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/account/feAccountOpening");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/feAccountOpening.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String reps = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/feAccountOpening", reps);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "account-opening"})
+    public void depositFeAccountOpeningPost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/feAccountOpening.txt"))
+                .post("deposit/account/feAccountOpening")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/feAccountOpening").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","account-opening"})
-    public void depositMetAccountOpeningPost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/account/metAccountOpening");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/metAccountOpening.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String res = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/metAccountOpening", res);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "account-opening"})
+    public void depositMetAccountOpeningPost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/metAccountOpening.txt"))
+                .post("deposit/account/metAccountOpening")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/metAccountOpening").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","account-opening"})
-    public void depositSavingAccountOpeningPost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/account/savingAccountOpening");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/savingAccountOpening.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/savingAccountOpening", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "account-opening"})
+    public void depositSavingAccountOpeningPost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/savingAccountOpening.txt"))
+                .post("deposit/account/savingAccountOpening")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/savingAccountOpening").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","account-opening"})
-    public void depositTdAccountOpeningPost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/account/tdAccountOpening");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/tdAccountOpening.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/tdAccountOpening", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "account-opening"})
+    public void depositTdAccountOpeningPost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/tdAccountOpening.txt"))
+                .post("deposit/account/tdAccountOpening")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/tdAccountOpening").using(jsonschemaemaFactory));
     }
 
     /**
      * @customer-maintenance
      */
-    @Test(groups = {"all","customer-maintenance"})
-    public void depositCusMainCustContactInfoUpdatePost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/account/custContactInfoUpdate");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/custContactInfoUpdate.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/custContactInfoUpdate", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "customer-maintenance"})
+    public void depositCusMainCustContactInfoUpdatePost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/custContactInfoUpdate.txt"))
+                .post("deposit/account/custContactInfoUpdate")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/custContactInfoUpdate").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","customer-maintenance"})
-    public void depositCusMainCustomerCreationPost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/account/customerCreation");
-        setPostHeader(post, data);
-        try {
-            JSONObject custObj = new JSONObject();
-            JSONObject requestObj = Util.getObject("/request/deposit/customerCreation.txt");
-            requestObj.put("customerID", "U" + Util.getRandomCustomerId() + "(1)");
-            post.setEntity(new StringEntity(requestObj.toString(), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/customerCreation", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "customer-maintenance"})
+    public void depositCusMainCustomerCreationPost() throws IOException {
+        JSONObject requestObj = Util.getObject("/request/deposit/customerCreation.txt");
+        requestObj.put("customerID", "U" + Util.getRandomCustomerId() + "(1)");
+        given()
+                .headers(Util.setHeader(data))
+                .body(requestObj)
+                .post("deposit/account/customerCreation")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/customerCreation").using(jsonschemaemaFactory));
     }
 
     /**
@@ -291,550 +196,396 @@ public class DepositApiTest {
      *
      * @TermDeposit
      */
-    @Test(groups = {"all","TermDeposit"})
-    public void depositTermDepositAllTermDepositGet() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+    @Test(enabled = true, groups = {"all", "TermDeposit"})
+    public void depositTermDepositAllTermDepositGet() throws IOException {
         String customerNumber = "001000000001";
-        HttpGet get = new HttpGet(baseURL + "deposit/term/allTermDeposit/" + customerNumber);
-        setGetHeader(get, data);
-        try {
-            CloseableHttpResponse response = httpClient.execute(get);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/allTermDeposit", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        given()
+                .headers(Util.setHeader(data))
+                .get("deposit/term/allTermDeposit/" + customerNumber)
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/allTermDeposit").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","TermDeposit"})
+    @Test(enabled = true, groups = {"all", "TermDeposit"})
     public void depositTermDepositAllEnquiryCustomerNumberGet() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         String accountNumber = "HK760001001000000005100";
-        HttpGet get = new HttpGet(baseURL + "deposit/term/termDeposit/" + accountNumber);
-        setGetHeader(get, data);
-        try {
-            CloseableHttpResponse response = httpClient.execute(get);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/termDeposit", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        given()
+                .headers(Util.setHeader(data))
+                .get("deposit/term/termDeposit/" + accountNumber)
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/termDeposit").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","TermDeposit"})
-    public void depositTermDepositTermDepositApplicationPost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/term/termDepositApplication");
-        setPostHeader(post, data);
-
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/termDepositApplication.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/termDepositApplication", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "TermDeposit"})
+    public void depositTermDepositTermDepositApplicationPost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/termDepositApplication.txt"))
+                .post("deposit/term/termDepositApplication")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/termDepositApplication").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","TermDeposit"})
-    public void depositTermDepositTermDepositDrawDownPost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/term/termDepositDrawDown");
-        setPostHeader(post, data);
-
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/termDepositDrawDown.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/termDepositDrawDown", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "TermDeposit", "error"})
+    public void depositTermDepositTermDepositDrawDownPost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/termDepositDrawDown.txt"))
+                .post("deposit/term/termDepositDrawDown")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/termDepositDrawDown").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","TermDeposit"})
-    public void depositTermDepositTermDepositEnquiryPost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/term/termDepositEnquiry");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/termDepositEnquiry.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/termDepositEnquiry", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "TermDeposit"})
+    public void depositTermDepositTermDepositEnquiryPost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/termDepositEnquiry.txt"))
+                .post("deposit/term/termDepositEnquiry")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/termDepositEnquiry").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","TermDeposit"})
-    public void depositTermDepositTermDepositRenewalPost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/term/termDepositRenewal");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/termDepositRenewal.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/termDepositRenewal", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "TermDeposit", "error"})
+    public void depositTermDepositTermDepositRenewalPost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/termDepositRenewal.txt"))
+                .post("deposit/term/termDepositRenewal")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/termDepositRenewal").using(jsonschemaemaFactory));
     }
 
     /**
      * @Transaction
      */
-    @Test(groups = {"all","Transaction"})
-    public void depositTransactionChequeBookCreationPost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/account/chequeBookCreation");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/chequeBookCreation.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/chequeBookCreation", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "Transaction"})
+    public void depositTransactionChequeBookCreationPost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/chequeBookCreation.txt"))
+                .post("deposit/account/chequeBookCreation")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/chequeBookCreation").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","Transaction"})
-    public void depositTransactionDepositPost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/account/deposit");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/deposit.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/deposit", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "Transaction"})
+    public void depositTransactionDepositPost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/deposit.txt"))
+                .post("deposit/account/deposit")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/deposit").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","Transaction"})
-    public void depositTransactionTransferPost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/account/transfer");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/transfer.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/transfer", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "Transaction"})
+    public void depositTransactionTransferPost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/transfer.txt"))
+                .post("deposit/account/transfer")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/transfer").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","Transaction"})
-    public void depositTransactionWithdrawalPost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/account/withdrawal");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/withdrawal.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/withdrawal", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "Transaction"})
+    public void depositTransactionWithdrawalPost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/withdrawal.txt"))
+                .post("deposit/account/withdrawal")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/withdrawal").using(jsonschemaemaFactory));
     }
 
     /**
      * @Transaction History
      */
 
-    @Test(groups = {"all","Transaction History"})
-    public void depositTransactionLogEnquiryPost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/transactionLog/enquiry");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/enquiry.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/enquiry", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "Transaction History", "error"})
+    public void depositTransactionLogEnquiryPost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/enquiry.txt"))
+                .post("deposit/transactionLog/enquiry")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/enquiry").using(jsonschemaemaFactory));
     }
 
     /**
      * @Vaccount
      */
-    @Test(groups = {"all","Vaccount"})
-    public void depositVaccountAccountBalancePost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/validate/accountBalance");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/accountBalance.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/accountBalance", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "Vaccount"})
+    public void depositVaccountAccountBalancePost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/accountBalance.txt"))
+                .post("deposit/validate/accountBalance")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/accountBalance").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","Vaccount"})
-    public void depositVaccountAccountNumberExistsPost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+    @Test(enabled = true, groups = {"all", "Vaccount"})
+    public void depositVaccountAccountNumberExistsPost() throws IOException {
         String accountNumber = "HK720001001000000001001";
-        HttpPost post = new HttpPost(baseURL + "deposit/validate/accountNumberExists/" + accountNumber);
-        setPostHeader(post, data);
-        try {
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/accountNumberExists", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        given()
+                .headers(Util.setHeader(data))
+                .post("deposit/validate/accountNumberExists/" + accountNumber)
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/accountNumberExists").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","Vaccount"})
-    public void depositVaccountAmountFormatPost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/validate/amountFormat");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/amountFormat.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/amountFormat", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "Vaccount"})
+    public void depositVaccountAmountFormatPost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/amountFormat.txt"))
+                .post("deposit/validate/amountFormat")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/amountFormat").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","Vaccount"})
-    public void depositVaccountAssociatedAccountsPost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+    @Test(enabled = true, groups = {"all", "Vaccount"})
+    public void depositVaccountAssociatedAccountsPost() throws IOException {
         String accountNumber = "HK720001001000000001001";
-        HttpPost post = new HttpPost(baseURL + "deposit/validate/associatedAccounts/" + accountNumber);
-        setPostHeader(post, data);
-        try {
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/associatedAccounts", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        given()
+                .headers(Util.setHeader(data))
+                .post("deposit/validate/associatedAccounts/" + accountNumber)
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/associatedAccounts").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","Vaccount"})
-    public void depositVaccountCurAccountTypePost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/validate/curAccountType");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/curAccountType.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/curAccountType", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "Vaccount"})
+    public void depositVaccountCurAccountTypePost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/curAccountType.txt"))
+                .post("deposit/validate/curAccountType")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/curAccountType").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","Vaccount"})
-    public void depositVaccountCurrencyGet() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+    @Test(enabled = true, groups = {"all", "Vaccount"})
+    public void depositVaccountCurrencyGet() throws IOException {
         String currency = "HKD";
-        HttpGet get = new HttpGet(baseURL + "deposit/validate/currency/" + currency);
-        setGetHeader(get, data);
-        try {
-            CloseableHttpResponse response = httpClient.execute(get);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/currency", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        given()
+                .headers(Util.setHeader(data))
+                .get("deposit/validate/currency/" + currency)
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/currency").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","Vaccount"})
-    public void depositVaccountFexAccountTypePost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/validate/fexAccountType");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/fexAccountType.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/fexAccountType", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "Vaccount"})
+    public void depositVaccountFexAccountTypePost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/fexAccountType.txt"))
+                .post("deposit/validate/fexAccountType")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/fexAccountType").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","Vaccount"})
-    public void depositVaccountFundAccountTypePost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/validate/fundAccountType");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/fundAccountType.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/fundAccountType", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "Vaccount"})
+    public void depositVaccountFundAccountTypePost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/fundAccountType.txt"))
+                .post("deposit/validate/fundAccountType")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/fundAccountType").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","Vaccount"})
-    public void depositVaccountMetAccountTypePost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/validate/metAccountType");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/metAccountType.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/metAccountType", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "Vaccount"})
+    public void depositVaccountMetAccountTypePost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/metAccountType.txt"))
+                .post("deposit/validate/metAccountType")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/metAccountType").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","Vaccount"})
-    public void depositVaccountSavOrCurTypePost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/validate/savOrCurType");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/savOrCurType.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/savOrCurType", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "Vaccount"})
+    public void depositVaccountSavOrCurTypePost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/savOrCurType.txt"))
+                .post("deposit/validate/savOrCurType")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/savOrCurType").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","Vaccount"})
-    public void depositVaccountStockAccountTypePost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/validate/stockAccountType");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/stockAccountType.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/stockAccountType", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "Vaccount"})
+    public void depositVaccountStockAccountTypePost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/stockAccountType.txt"))
+                .post("deposit/validate/stockAccountType")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/stockAccountType").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","Vaccount"})
-    public void depositVaccountTdAccountTypePost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/validate/tdAccountType");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/tdAccountType.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/tdAccountType", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "Vaccount"})
+    public void depositVaccountTdAccountTypePost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/tdAccountType.txt"))
+                .post("deposit/validate/tdAccountType")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/tdAccountType").using(jsonschemaemaFactory));
     }
 
     /**
      * @Vcustomer
      */
-    @Test(groups = {"all","Vcustomer"})
-    public void depositVcustomerEmailFormatPost() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost post = new HttpPost(baseURL + "deposit/validate/emailFormat");
-        setPostHeader(post, data);
-        try {
-            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/emailFormat.txt"), "UTF-8"));
-            CloseableHttpResponse response = httpClient.execute(post);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/emailFormat", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Test(enabled = true, groups = {"all", "Vcustomer"})
+    public void depositVcustomerEmailFormatPost() throws IOException {
+        given()
+                .headers(Util.setHeader(data))
+                .body(Util.getObject("/request/deposit/emailFormat.txt"))
+                .post("deposit/validate/emailFormat")
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/emailFormat").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","Vcustomer"})
-    public void depositVcustomerExistingCustomerGet() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+    @Test(enabled = true, groups = {"all", "Vcustomer"})
+    public void depositVcustomerExistingCustomerGet() throws IOException {
         String customerID = "U735535(9)";
-        HttpGet get = new HttpGet(baseURL + "deposit/validate/existingCustomer/" + customerID);
-        setGetHeader(get, data);
-
-        try {
-            CloseableHttpResponse response = httpClient.execute(get);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/existingCustomer", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        given()
+                .headers(Util.setHeader(data))
+                .get("deposit/validate/existingCustomer/" + customerID)
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/existingCustomer").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","Vcustomer"})
+    @Test(enabled = true, groups = {"all", "Vcustomer"})
     public void depositVcustomerIdFormatGet() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         String customerID = "U735535(9)";
-        HttpGet get = new HttpGet(baseURL + "deposit/validate/idFormat/" + customerID);
-        setGetHeader(get, data);
-        try {
-            CloseableHttpResponse response = httpClient.execute(get);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/idFormat", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        given()
+                .headers(Util.setHeader(data))
+                .get("deposit/validate/idFormat/" + customerID)
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/idFormat").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","Vcustomer"})
+    @Test(enabled = true, groups = {"all", "Vcustomer"})
     public void depositVcustomerPhoneNumberFormatGet() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         String phone = "64657884";
-        HttpGet get = new HttpGet(baseURL + "deposit/validate/phoneNumberFormat/" + phone);
-        setGetHeader(get, data);
-        try {
-            CloseableHttpResponse response = httpClient.execute(get);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/phoneNumberFormat", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        given()
+                .headers(Util.setHeader(data))
+                .get("deposit/validate/phoneNumberFormat/" + phone)
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/phoneNumberFormat").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","Vcustomer"})
+
+    @Test(enabled = true, groups = {"all", "Vcustomer"})
     public void depositVtermDepositContractPeriodGet() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         String period = "1day";
-        HttpGet get = new HttpGet(baseURL + "deposit/validate/contractPeriod/" + period);
-        setGetHeader(get, data);
-        try {
-            CloseableHttpResponse response = httpClient.execute(get);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/contractPeriod", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        given()
+                .headers(Util.setHeader(data))
+                .get("deposit/validate/contractPeriod/" + period)
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/contractPeriod").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","Vcustomer"})
+    @Test(enabled = true, groups = {"all", "Vcustomer"})
     public void depositVtermDepositTdNumberExistsGet() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         String tdnumber = "000000001";
-        HttpGet get = new HttpGet(baseURL + "deposit/validate/tdNumberExists/" + tdnumber);
-        setGetHeader(get, data);
-
-        try {
-            CloseableHttpResponse response = httpClient.execute(get);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/tdNumberExists", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        given()
+                .headers(Util.setHeader(data))
+                .get("deposit/validate/tdNumberExists/" + tdnumber)
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/tdNumberExists").using(jsonschemaemaFactory));
     }
 
-    @Test(groups = {"all","Vcustomer"})
-    public void depositVtransactionDateFormatGet() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        String date = "2019-03-12";
-        HttpGet get = new HttpGet(baseURL + "deposit/validate/dateFormat/" + date);
-        setGetHeader(get, data);
-        try {
-            CloseableHttpResponse response = httpClient.execute(get);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/dateFormat", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-//    @Test(enabled = true)
-//    public void depositVtransactionDateRangePost() {
-//        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-//        HttpPost post = new HttpPost(baseURL + "deposit/validate/dateRange");
-//        setPostHeader(post, data);
-//
-//        try {
-//            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/dateRange.txt"), "UTF-8"));
-//            CloseableHttpResponse response = httpClient.execute(post);
-//            String str = EntityUtils.toString(response.getEntity());
-//            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-//            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/dateRange", str);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-
-//    @Test(enabled = false)
-//    public void depositVtransactionTimeFormatGet() {
-//        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-//        String time = "2019-04-23 15:52:43";
-//        try {
-//            HttpGet get = new HttpGet(baseURL + "deposit/validate/timeFormat/" + URLEncoder.encode(time).replace("+", "%20"));
-//            setGetHeader(get, data);
-//            CloseableHttpResponse response = httpClient.execute(get);
-//            String str = EntityUtils.toString(response.getEntity());
-//            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/timeFormat", str);
-//            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-    @Test(groups = {"all","Vcustomer"})
+    @Test(enabled = true, groups = {"all", "Vcustomer"})
     public void depositVtransactionTransTypeGet() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         String transtype = "0001";
-        try {
-            HttpGet get = new HttpGet(baseURL + "deposit/validate/transType/" + transtype);
-            setGetHeader(get, data);
-            CloseableHttpResponse response = httpClient.execute(get);
-            String str = EntityUtils.toString(response.getEntity());
-            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
-            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/transType", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        given()
+                .headers(Util.setHeader(data))
+                .get("deposit/validate/transType/" + transtype)
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("response/deposit/transType").using(jsonschemaemaFactory));
     }
+    /**
+     * this api has been deleted
+     */
+//    @Test(enabled = false, groups = {"all", "Vcustomer"})
+//    public void depositVtransactionDateFormatGet() {
+//        String date = "2019-03-12";
+//        given()
+//                .headers(Util.setHeader(data))
+//                .get("deposit/validate/dateFormat/" + date)
+//                .then()
+//                .statusCode(200)
+//                .body(matchesJsonSchemaInClasspath("response/deposit/dateFormat").using(jsonschemaemaFactory));
+//    }
+
+////    @Test(enabled = true)
+////    public void depositVtransactionDateRangePost() {
+////        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+////        HttpPost post = new HttpPost(baseURL + "deposit/validate/dateRange");
+////        setPostHeader(post, data);
+////
+////        try {
+////            post.setEntity(new StringEntity(Util.getStringValue("/request/deposit/dateRange.txt"), "UTF-8"));
+////            CloseableHttpResponse response = httpClient.execute(post);
+////            String str = EntityUtils.toString(response.getEntity());
+////            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+////            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/dateRange", str);
+////        } catch (IOException e) {
+////            e.printStackTrace();
+////        }
+////    }
+//
+//
+////    @Test(enabled = false)
+////    public void depositVtransactionTimeFormatGet() {
+////        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+////        String time = "2019-04-23 15:52:43";
+////        try {
+////            HttpGet get = new HttpGet(baseURL + "deposit/validate/timeFormat/" + URLEncoder.encode(time).replace("+", "%20"));
+////            setGetHeader(get, data);
+////            CloseableHttpResponse response = httpClient.execute(get);
+////            String str = EntityUtils.toString(response.getEntity());
+////            JsonSchemaUtils.assertResponseJsonSchema("/response/deposit/timeFormat", str);
+////            Assert.assertEquals(response.getStatusLine().getStatusCode(), 200);
+////        } catch (IOException e) {
+////            e.printStackTrace();
+////        }
+////    }
+//
+
 }
