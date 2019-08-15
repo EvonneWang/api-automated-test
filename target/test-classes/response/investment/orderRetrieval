@@ -68,7 +68,7 @@
             "title": "The Id Schema",
             "default": "",
             "examples": [
-              "039cab6bd77d4639b19c554d52e0185e"
+              "56da9b5903b9491b860bf70c1d4ca21c"
             ],
             "pattern": "^(.*)$"
           },
@@ -104,12 +104,13 @@
           },
           "stockname": {
             "$id": "#/properties/data/items/properties/stockname",
-            "type": "null",
+            "type": ["null","string"],
             "title": "The Stockname Schema",
-            "default": null,
+            "default": "",
             "examples": [
-              null
-            ]
+              "LERTHAI GROUP"
+            ],
+            "pattern": "^(.*)$"
           },
           "ordertype": {
             "$id": "#/properties/data/items/properties/ordertype",
@@ -133,7 +134,7 @@
           },
           "sharingno": {
             "$id": "#/properties/data/items/properties/sharingno",
-            "type": ["null","number"],,
+            "type": "integer",
             "title": "The Sharingno Schema",
             "default": 0,
             "examples": [
@@ -142,7 +143,7 @@
           },
           "tradingprice": {
             "$id": "#/properties/data/items/properties/tradingprice",
-            "type": [null,"number"],
+            "type": "number",
             "title": "The Tradingprice Schema",
             "default": 0.0,
             "examples": [
@@ -151,7 +152,7 @@
           },
           "tradingamount": {
             "$id": "#/properties/data/items/properties/tradingamount",
-            "type": [null,"number"]
+            "type": "number",
             "title": "The Tradingamount Schema",
             "default": 0,
             "examples": [
@@ -160,7 +161,7 @@
           },
           "tradingcommission": {
             "$id": "#/properties/data/items/properties/tradingcommission",
-            "type": [null,"number"],
+            "type": "number",
             "title": "The Tradingcommission Schema",
             "default": 0.0,
             "examples": [
@@ -169,7 +170,7 @@
           },
           "custodycharges": {
             "$id": "#/properties/data/items/properties/custodycharges",
-            "type": [null,"number"],
+            "type": "number",
             "title": "The Custodycharges Schema",
             "default": 0,
             "examples": [
@@ -178,7 +179,7 @@
           },
           "transactionamount": {
             "$id": "#/properties/data/items/properties/transactionamount",
-            "type": [null,"number"],
+            "type": "number",
             "title": "The Transactionamount Schema",
             "default": 0.0,
             "examples": [
@@ -197,20 +198,23 @@
           },
           "requesttime": {
             "$id": "#/properties/data/items/properties/requesttime",
-            "type": [null,"number"],
+            "type": "integer",
             "title": "The Requesttime Schema",
             "default": 0,
             "examples": [
-              1562932948920
+              1564583947169
             ]
           },
           "expirydate": {
             "$id": "#/properties/data/items/properties/expirydate",
-            "type": ["number",null],
+            "type": [
+              "null",
+              "integer"
+            ],
             "title": "The Expirydate Schema",
             "default": 0,
             "examples": [
-              1563033599999
+              1564680709555
             ]
           },
           "statuscode": {
@@ -235,30 +239,30 @@
           },
           "operationreasons": {
             "$id": "#/properties/data/items/properties/operationreasons",
-            "type": "string",
+            "type": ["null","string"],
             "title": "The Operationreasons Schema",
             "default": "",
             "examples": [
-              "来来来"
+              "reject"
             ],
             "pattern": "^(.*)$"
           },
           "operationdate": {
             "$id": "#/properties/data/items/properties/operationdate",
-            "type": ["number",null],
+            "type": ["null","integer"],
             "title": "The Operationdate Schema",
             "default": 0,
             "examples": [
-              1562935379303
+              1565136002329
             ]
           },
           "lastupdatedate": {
             "$id": "#/properties/data/items/properties/lastupdatedate",
-            "type": ["number",null],
+            "type": "integer",
             "title": "The Lastupdatedate Schema",
             "default": 0,
             "examples": [
-              1562935379303
+              1565136002329
             ]
           }
         }

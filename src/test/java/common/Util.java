@@ -5,6 +5,8 @@ import net.sf.json.JSONObject;
 
 import java.io.*;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 public class Util {
@@ -39,6 +41,7 @@ public class Util {
         return ((int) ((Math.random() * 9 + 1) * 100000));
     }
 
+    //(System.currentTimeMillis()+5*60*1000)
     public static JSONObject setHeader(DataVO dataVO) {
         JSONObject params = new JSONObject();
         params.put("content-type", "application/json");

@@ -5,39 +5,29 @@
   "type": "object",
   "title": "The Root Schema",
   "required": [
-    "code",
     "msg",
-    "data"
+    "code"
   ],
   "properties": {
-    "code": {
-      "$id": "#/properties/code",
-      "type": "string",
-      "title": "The Code Schema",
-      "default": "",
-      "enum": [
-        "1"
-      ],
-      "pattern": "^(.*)$"
-    },
     "msg": {
       "$id": "#/properties/msg",
       "type": "string",
       "title": "The Msg Schema",
       "default": "",
       "enum": [
-        "Transaction Accepted"
+        "transaction completed"
       ],
       "pattern": "^(.*)$"
     },
-    "data": {
-      "$id": "#/properties/data",
-      "type": "null",
-      "title": "The Data Schema",
-      "default": null,
+    "code": {
+      "$id": "#/properties/code",
+      "type": "string",
+      "title": "The Code Schema",
+      "default": "",
       "examples": [
-        null
-      ]
+        "1"
+      ],
+      "pattern": "\\d"
     }
   }
 }

@@ -7,6 +7,15 @@ public class DataVO {
     String creditCardNumber;
     String leonAccount;
     String totalpayment;
+    String oderId;
+
+    public String getOderId() {
+        return oderId;
+    }
+
+    public void setOderId(String oderId) {
+        this.oderId = oderId;
+    }
 
     public String getTotalpayment() {
         return totalpayment;

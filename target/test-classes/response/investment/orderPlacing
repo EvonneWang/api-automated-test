@@ -32,12 +32,13 @@
     },
     "data": {
       "$id": "#/properties/data",
-      "type": "null",
+      "type": "string",
       "title": "The Data Schema",
-      "default": null,
+      "default": "",
       "examples": [
-        null
-      ]
+        ""
+      ],
+      "pattern": "^(.*)$"
     }
   }
 }

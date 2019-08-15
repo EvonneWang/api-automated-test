@@ -15,29 +15,30 @@
       "type": "string",
       "title": "The Code Schema",
       "default": "",
-      "enum": [
-        "4041007"
+      "examples": [
+        "2001001"
       ],
-      "pattern": "\\d"
+      "pattern": "^(.*)$"
     },
     "msg": {
       "$id": "#/properties/msg",
       "type": "string",
       "title": "The Msg Schema",
       "default": "",
-      "enum": [
-        "Wrong username or password"
+      "examples": [
+        "Login Success"
       ],
       "pattern": "^(.*)$"
     },
     "data": {
       "$id": "#/properties/data",
-      "type": "null",
+      "type": "string",
       "title": "The Data Schema",
-      "default": null,
+      "default": "",
       "examples": [
-        null
-      ]
+        "67e6cc4d8cdc4ba48768968542bfe2d4"
+      ],
+      "pattern": "^(.*)$"
     }
   }
 }

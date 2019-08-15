@@ -101,7 +101,7 @@
           },
           "high": {
             "$id": "#/properties/data/items/properties/high",
-            "type": [null,"number"],"
+            "type": "number",
             "title": "The High Schema",
             "default": 0.0,
             "examples": [
@@ -110,7 +110,7 @@
           },
           "low": {
             "$id": "#/properties/data/items/properties/low",
-            "type": [null,"number"],
+            "type": "number",
             "title": "The Low Schema",
             "default": 0.0,
             "examples": [
@@ -119,7 +119,7 @@
           },
           "previousclose": {
             "$id": "#/properties/data/items/properties/previousclose",
-            "type": [null,"number"],
+            "type": "number",
             "title": "The Previousclose Schema",
             "default": 0.0,
             "examples": [
@@ -128,7 +128,7 @@
           },
           "lastprice": {
             "$id": "#/properties/data/items/properties/lastprice",
-            "type": [null,"number"],
+            "type": "number",
             "title": "The Lastprice Schema",
             "default": 0.0,
             "examples": [
@@ -157,7 +157,7 @@
           },
           "buyprice": {
             "$id": "#/properties/data/items/properties/buyprice",
-            "type": [null,"number"],
+            "type": "number",
             "title": "The Buyprice Schema",
             "default": 0.0,
             "examples": [
@@ -166,7 +166,7 @@
           },
           "sellprice": {
             "$id": "#/properties/data/items/properties/sellprice",
-            "type": [null,"number"],
+            "type": "number",
             "title": "The Sellprice Schema",
             "default": 0.0,
             "examples": [
@@ -175,7 +175,7 @@
           },
           "volume": {
             "$id": "#/properties/data/items/properties/volume",
-            "type": [null,"number"],
+            "type": "number",
             "title": "The Volume Schema",
             "default": 0,
             "examples": [
@@ -193,7 +193,7 @@
           },
           "eps": {
             "$id": "#/properties/data/items/properties/eps",
-            "type": [null,"number"],
+            "type": "number",
             "title": "The Eps Schema",
             "default": 0.0,
             "examples": [
@@ -202,7 +202,7 @@
           },
           "ratio": {
             "$id": "#/properties/data/items/properties/ratio",
-            "type": [null,"number"],
+            "type": ["null","number"],
             "title": "The Ratio Schema",
             "default": 0.0,
             "examples": [
@@ -211,7 +211,7 @@
           },
           "lotsize": {
             "$id": "#/properties/data/items/properties/lotsize",
-            "type": [null,"number"],
+            "type": "number",
             "title": "The Lotsize Schema",
             "default": 0,
             "examples": [
@@ -220,7 +220,7 @@
           },
           "tradingpoint": {
             "$id": "#/properties/data/items/properties/tradingpoint",
-            "type": [null,"number"],
+            "type": "number",
             "title": "The Tradingpoint Schema",
             "default": 0.0,
             "examples": [
@@ -229,7 +229,7 @@
           },
           "lasttradingday": {
             "$id": "#/properties/data/items/properties/lasttradingday",
-            "type": [null,"number"],
+            "type": "number",
             "title": "The Lasttradingday Schema",
             "default": 0,
             "examples": [
