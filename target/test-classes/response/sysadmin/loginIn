@@ -32,7 +32,7 @@
     },
     "data": {
       "$id": "#/properties/data",
-      "type": "string",
+      "type": ["null","string"],
       "title": "The Data Schema",
       "default": "",
       "examples": [

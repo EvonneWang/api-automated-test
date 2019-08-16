@@ -101,7 +101,7 @@ public class SysadminApiTest {
     }
 
     //there are too many response data, so the api is slow.
-    @Test(enabled = true, groups = {"all", "branch-code-search-controller", "error"})
+    @Test(enabled = false, groups = {"all", "branch-code-search-controller", "error"})
     public void sysadminBranchCodeSearchControllerGetBranchCodeTableInfoPost() throws IOException {
 //        "SandBoxId": 9
         given()
@@ -184,7 +184,7 @@ public class SysadminApiTest {
 
     //this api can't be automated as the customerNumber must not in the sysadmin->t_login_in and in the table deposit->t_termdeposit_master.
     //now no have one api to get the customernumber from the DB.
-    @Test(enabled = true, groups = {"all", "login-controller", "error"})
+    @Test(enabled = false, groups = {"all", "login-controller", "error"})
     public void sysadminLoginControllerUserCreationPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
