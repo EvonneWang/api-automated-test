@@ -132,8 +132,8 @@
                     <forkMode>never</forkMode>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                     <suiteXmlFiles>
-                        <!--                        <suiteXmlFile>${project.basedir}/src/test/resources/testNG/${xmlFileName}</suiteXmlFile>-->
-                        <suiteXmlFile>testNG.xml</suiteXmlFile>
+                        <suiteXmlFile>${project.basedir}/src/test/resources/testNG/${xmlFileName}</suiteXmlFile>
+                        <!--                        <suiteXmlFile>testNG.xml</suiteXmlFile>-->
                     </suiteXmlFiles>
                     <includes>
                         <include>**/*Tests.java</include>
