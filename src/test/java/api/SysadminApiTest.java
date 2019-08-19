@@ -5,6 +5,7 @@ import com.github.fge.jsonschema.main.JsonSchemaFactory;
 import common.JsonSchemaUtils;
 import common.Util;
 import io.restassured.RestAssured;
+import io.restassured.config.SSLConfig;
 import model.DataVO;
 import net.sf.json.JSONObject;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -28,8 +29,9 @@ public class SysadminApiTest {
     JsonSchemaFactory jsonschemaemaFactory = null;
 
     DataVO data = new DataVO();
+    int port;
 
-    @BeforeClass
+    @BeforeClass(groups = {"all"})
     public void setUp() {
         RestAssured.baseURI = "http://3.130.122.199:8086/sysadmin/";
         jsonschemaemaFactory = JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV4).freeze()).freeze();

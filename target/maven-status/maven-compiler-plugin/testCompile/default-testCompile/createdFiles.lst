@@ -3,10 +3,10 @@ common\Util.class
 reporter\listener\ExtentTestNGITestListener.class
 api\CreditCardApiTest.class
 api\DepositApiTest.class
-api\LoadApiTest.class
 service\IHook.class
 reporter\listener\ExtentManager.class
 api\ForeignExchangeApiTest.class
+api\LoanApiTest.class
 common\JsonSchemaUtils.class
 api\InvestmentApiTest.class
 reporter\listener\ExtentTestNGIReporterListener.class

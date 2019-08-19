@@ -38,7 +38,7 @@ public class InvestmentApiTest {
         data.setMessageid("006f7113e5fa48559549c4dfe74e2cd6");
     }
 
-    @BeforeClass
+    @BeforeClass(groups = {"all"})
     public void setUp() {
         RestAssured.baseURI = "http://3.130.122.199:8086/investment/";
         jsonschemaemaFactory = JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV4).freeze()).freeze();
