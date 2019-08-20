@@ -1,5 +1,0 @@
-{
-  "developerID": "111a",
-  "developername": "张三",
-  "email": "example@chinasofti.com"
-}

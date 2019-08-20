@@ -1,5 +1,0 @@
-{
-  "tdRenewalPeriod": "2months",
-  "tdaccountnumber": "HK760001001000000005100",
-  "tdnumber": "000006490"
-}

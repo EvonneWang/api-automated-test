@@ -1,6 +1,0 @@
-{
-  "accountType": "001",
-  "currencyCode": "HKD",
-  "customerNumber": "001000000001",
-  "relaccountnumber": ""
-}

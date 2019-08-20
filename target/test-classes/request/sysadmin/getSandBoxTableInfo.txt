@@ -1,4 +1,0 @@
-{
-  "sandboxid": "e880c37dd4d14cf6b474e7e039554fe0",
-  "tablename": "t_termdeposit_master"
-}

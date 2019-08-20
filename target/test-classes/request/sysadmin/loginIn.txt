@@ -1,4 +1,0 @@
-{
-  "loginname": "WongYan",
-  "loginpwd": 123456
-}
