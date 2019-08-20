@@ -1,3 +1,0 @@
-{
-  "creditcardnumber": 5000010000000032
-}
