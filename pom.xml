@@ -64,14 +64,14 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.19.1</version>
                 <configuration>
-                    <forkMode>once</forkMode>
-                    <argLine>-Dfile.encoding=UTF-8</argLine>
+<!--                    <forkMode>always</forkMode>-->
+                    <argLine>-Dfile.encoding=UTF-8 -Xmx1024m -XX:MaxPermSize=256m</argLine>
                     <suiteXmlFiles>
                         <suiteXmlFile>${project.basedir}/src/test/resources/testNG/${xmlFileName}</suiteXmlFile>
                     </suiteXmlFiles>
-<!--                    <includes>-->
-<!--                        <include>**/*Tests.java</include>-->
-<!--                    </includes>-->
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
                 </configuration>
 
             </plugin>
