@@ -2,11 +2,11 @@ package api;
 
 import com.github.fge.jsonschema.cfg.ValidationConfiguration;
 import com.github.fge.jsonschema.main.JsonSchemaFactory;
+import common.Util;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import net.sf.json.JSONObject;
-import common.Util;
 import model.DataVO;
+import net.sf.json.JSONObject;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -26,13 +26,13 @@ public class LoanApiTest {
         data.setMessageid("006f7113e5fa48559549c4dfe74e2cd6");
     }
 
-    @BeforeClass(groups = {"all"})
+    @BeforeClass(groups = {"all", "loan"})
     public void setUp() {
         RestAssured.baseURI = "http://3.130.122.199:8086/loan/";
         jsonschemaemaFactory = JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV4).freeze()).freeze();
     }
 
-    @Test(enabled = true, groups = {"all", "mortgage-loan"})
+    @Test(enabled = true, groups = {"all", "loan"})
     public void leonMortageAccountDetailEnquiryPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -43,7 +43,7 @@ public class LoanApiTest {
                 .body(matchesJsonSchemaInClasspath("response/loan/accountDetailEnquiry").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "mortgage-loan"}, dependsOnMethods = "leonMortageMortgageLoanAccountOpeningPost")
+    @Test(enabled = true, groups = {"all", "loan"}, dependsOnMethods = "leonMortageMortgageLoanAccountOpeningPost")
     public void leonMortageCancellationPost() throws IOException {
         JSONObject requestObj = Util.getObject("/request/loan/cancellation.txt");
         requestObj.put("accountnumber", data.getLeonAccount());
@@ -56,7 +56,7 @@ public class LoanApiTest {
                 .body(matchesJsonSchemaInClasspath("response/loan/cancellation").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "mortgage-loan"})
+    @Test(enabled = true, groups = {"all", "loan"})
     public void leonMortageLoanCalculaterPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -67,7 +67,7 @@ public class LoanApiTest {
                 .body(matchesJsonSchemaInClasspath("response/loan/loanCalculater").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "mortgage-loan"})
+    @Test(enabled = true, groups = {"all", "loan"})
     public void leonMortageMortgageLoanAccountOpeningPost() throws IOException {
         Response response = given()
                 .headers(Util.setHeader(data))
@@ -79,7 +79,7 @@ public class LoanApiTest {
         data.setLeonAccount(response.path("data"));
     }
 
-    @Test(enabled = true, groups = {"all", "mortgage-loan"})
+    @Test(enabled = true, groups = {"all", "loan"})
     public void leonMortageMortgageLoanApplicationPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -90,7 +90,7 @@ public class LoanApiTest {
                 .body(matchesJsonSchemaInClasspath("response/loan/mortgageLoanApplication").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "mortgage-loan"})
+    @Test(enabled = true, groups = {"all", "loan"})
     public void leonMortageNextRepaymentEnquiryPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -101,7 +101,7 @@ public class LoanApiTest {
                 .body(matchesJsonSchemaInClasspath("response/loan/nextRepaymentEnquiry").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "mortgage-loan"})
+    @Test(enabled = true, groups = {"all", "loan"})
     public void leonMortageOverDueRepaymentEnquiryPost() throws IOException {
         Response response = given()
                 .headers(Util.setHeader(data))
@@ -113,7 +113,7 @@ public class LoanApiTest {
         data.setTotalpayment(response.path("data.outstandingrepayment.totalpayment[0]").toString());
     }
 
-    @Test(enabled = true, groups = {"all", "mortgage-loan"}, dependsOnMethods = "leonMortageOverDueRepaymentEnquiryPost")
+    @Test(enabled = true, groups = {"all", "loan"}, dependsOnMethods = "leonMortageOverDueRepaymentEnquiryPost")
     public void leonMortageRepaymentPost() throws IOException {
         JSONObject requestObj = Util.getObject("/request/loan/repayment.txt");
         requestObj.put("repaymentamount", data.getTotalpayment());
@@ -126,7 +126,7 @@ public class LoanApiTest {
                 .body(matchesJsonSchemaInClasspath("response/loan/repayment").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "mortgage-loan"})
+    @Test(enabled = true, groups = {"all", "loan"})
     public void leonMortageRepaymentPlanPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -137,7 +137,7 @@ public class LoanApiTest {
                 .body(matchesJsonSchemaInClasspath("response/loan/repaymentPlan").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "mortgage-loan"})
+    @Test(enabled = true, groups = {"all", "loan"})
     public void leonMortageTransactionEnquiryPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))

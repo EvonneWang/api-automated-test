@@ -2,20 +2,10 @@ package api;
 
 import com.github.fge.jsonschema.cfg.ValidationConfiguration;
 import com.github.fge.jsonschema.main.JsonSchemaFactory;
-import common.JsonSchemaUtils;
 import common.Util;
 import io.restassured.RestAssured;
-import io.restassured.config.SSLConfig;
 import model.DataVO;
 import net.sf.json.JSONObject;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -31,7 +21,7 @@ public class SysadminApiTest {
     DataVO data = new DataVO();
     int port;
 
-    @BeforeClass(groups = {"all"})
+    @BeforeClass(groups = {"all", "sysadmin"})
     public void setUp() {
         RestAssured.baseURI = "http://3.130.122.199:8086/sysadmin/";
         jsonschemaemaFactory = JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV4).freeze()).freeze();
@@ -40,7 +30,7 @@ public class SysadminApiTest {
     /**
      * @admin-controller
      */
-    @Test(enabled = true, groups = {"all", "admin-controller"})
+    @Test(enabled = true, groups = {"all", "sysadmin"})
     public void sysadminAdminControllerLoginInPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -54,7 +44,7 @@ public class SysadminApiTest {
     /**
      * @authority-controller
      */
-    @Test(enabled = true, groups = {"all", "authority-controller"})
+    @Test(enabled = true, groups = {"all", "sysadmin"})
     public void sysadminAuthorityControllerAppDockerForDeveloperPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -65,7 +55,7 @@ public class SysadminApiTest {
                 .body(matchesJsonSchemaInClasspath("response/sysadmin/appDockerForDeveloper").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "authority-controller"})
+    @Test(enabled = true, groups = {"all", "sysadmin"})
     public void sysadminAuthorityControllerDeveloperAuthorizationPost() throws IOException {
         JSONObject requestObj = Util.getObject("/request/sysadmin/developerAuthorization.txt");
         requestObj.put("developerID", Util.getRandomCustomerId());
@@ -78,7 +68,7 @@ public class SysadminApiTest {
                 .body(matchesJsonSchemaInClasspath("response/sysadmin/developerAuthorization").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "authority-controller"})
+    @Test(enabled = true, groups = {"all", "sysadmin"})
     public void sysadminAuthorityControllerGetSandBoxPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -92,7 +82,7 @@ public class SysadminApiTest {
     /**
      * @branch-code-search-controller
      */
-    @Test(enabled = true, groups = {"all", "branch-code-search-controller"})
+    @Test(enabled = true, groups = {"all", "sysadmin"})
     public void sysadminBranchCodeSearchControllerGetBranchCodeTableGet() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -103,7 +93,7 @@ public class SysadminApiTest {
     }
 
     //there are too many response data, so the api is slow.
-    @Test(enabled = false, groups = {"all", "branch-code-search-controller", "error"})
+    @Test(enabled = false, groups = {"all", "sysadmin", "error"})
     public void sysadminBranchCodeSearchControllerGetBranchCodeTableInfoPost() throws IOException {
 //        "SandBoxId": 9
         given()
@@ -118,7 +108,7 @@ public class SysadminApiTest {
     /**
      * @currency-controller
      */
-    @Test(enabled = true, groups = {"all", "currency-controller"})
+    @Test(enabled = true, groups = {"all", "sysadmin"})
     public void sysadminCurrencyControllerCurrencyRetrievalGet() {
         given()
                 .headers(Util.setHeader(data))
@@ -131,7 +121,7 @@ public class SysadminApiTest {
     /**
      * @generate-available-controller
      */
-    @Test(enabled = true, groups = {"all", "generate-available-controller"})
+    @Test(enabled = true, groups = {"all", "sysadmin"})
     public void sysadminGenerateAvailableControllerlGetNextAvailableNumberGet() {
         String item = "NextAvailableCustomerNumber";
         given()
@@ -146,7 +136,7 @@ public class SysadminApiTest {
      * @lbs-sdk-controller
      */
     //This is ignored for the time being. This priority is very low.
-    @Test(enabled = false, groups = {"all", "generate-available-controller", "error"})
+    @Test(enabled = false, groups = {"all", "sysadmin", "error"})
     public void sysadminLbsSdkControllerDownloadsdkGet() {
         given()
                 .header("content-type", "application/json")
@@ -160,7 +150,7 @@ public class SysadminApiTest {
     /**
      * @login-controller
      */
-    @Test(enabled = true, groups = {"all", "login-controller"})
+    @Test(enabled = true, groups = {"all", "sysadmin"})
     public void sysadminLoginControllerAuthorizeGet() {
         String loginPK = "67e6cc4d8cdc4ba48768968542bfe2d4";
         given()
@@ -173,7 +163,7 @@ public class SysadminApiTest {
     }
 
 
-    @Test(enabled = true, groups = {"all", "login-controller"})
+    @Test(enabled = true, groups = {"all", "sysadmin"})
     public void sysadminLoginControllerLoginInPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -186,7 +176,7 @@ public class SysadminApiTest {
 
     //this api can't be automated as the customerNumber must not in the sysadmin->t_login_in and in the table deposit->t_termdeposit_master.
     //now no have one api to get the customernumber from the DB.
-    @Test(enabled = false, groups = {"all", "login-controller", "error"})
+    @Test(enabled = false, groups = {"all", "sysadmin", "error"})
     public void sysadminLoginControllerUserCreationPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -200,7 +190,7 @@ public class SysadminApiTest {
     /**
      * @sand-box-search-controller
      */
-    @Test(enabled = true, groups = {"all", "sand-box-search-controller"})
+    @Test(enabled = true, groups = {"all", "sysadmin"})
     public void sysadminSandBoxSearchControllerGetSandBoxTableGet() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -210,7 +200,7 @@ public class SysadminApiTest {
                 .body(matchesJsonSchemaInClasspath("response/sysadmin/getSandBoxTable").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "sand-box-search-controller", "error"})
+    @Test(enabled = true, groups = {"all", "sysadmin"})
     public void sysadminSandBoxSearchControllerGetSandBoxTableInfoPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -224,7 +214,7 @@ public class SysadminApiTest {
     /**
      * @sys-config-controller
      */
-    @Test(enabled = true, groups = {"all", "sys-config-controller"})
+    @Test(enabled = true, groups = {"all", "sysadmin"})
     public void sysadminSysConfigControllerGetSystemParameterPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))

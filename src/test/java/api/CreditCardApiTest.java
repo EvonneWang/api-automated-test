@@ -20,18 +20,17 @@ import java.io.IOException;
 
 import static com.github.fge.jsonschema.SchemaVersion.DRAFTV4;
 import static io.restassured.RestAssured.given;
-//import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class CreditCardApiTest {
     DataVO data = new DataVO();
-    JsonSchemaFactory jsonschemaemaFactory = null;
+    private JsonSchemaFactory jsonschemaemaFactory = null;
 
     CreditCardApiTest() {
         data.setToken("eyJhbGciOiJIUzUxMiIsInppcCI6IkRFRiJ9.eNo8y00OwiAQhuG7zNoFkBLUpbqwadI7ADNWEn4aWozGeHchNs7yme99A9KDfJop9xc4gkTaG6XtTQrRCWEPhMKojhnDLVdKwg5sKnHNr3NCqsF1aORJZxenzRhjvKrJOtr73xr5NLk46tBkdqGlZVlToDyWYCj_hmy7Viw64ik9e6wv-HwBAAD__w.alc0ibAbJotnPxSQL2wtt9Qo8h0YYzl4WkxOK65PnGy1fK4SDmNRRVEohqOya_K7qOXJOt5Cjdm10cejK3PViA");
     }
 
-    @BeforeClass(groups = {"all"})
+    @BeforeClass(groups = {"all", "creditCard"})
     public void setUp() {
         RestAssured.baseURI = "http://3.130.122.199:8086/creditcard/";
         jsonschemaemaFactory = JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV4).freeze()).freeze();
@@ -56,7 +55,7 @@ public class CreditCardApiTest {
     /**
      * @credit-card
      */
-    @Test(enabled = false, groups = {"all", "credit-card"})
+    @Test(enabled = true, groups = {"all", "creditCard"})
     public void creditCardAccountOpeningPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -68,7 +67,7 @@ public class CreditCardApiTest {
                 .body(matchesJsonSchemaInClasspath("response/creditcard/accountOpening").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "credit-card"})
+    @Test(enabled = true, groups = {"all", "creditCard"})
     public void creditCardCanCellationPost() throws IOException {
         getNewCreditCard();
         JSONObject requestObj = Util.getObject("/request/creditCard/canCellation.txt");
@@ -82,7 +81,7 @@ public class CreditCardApiTest {
                 .body(matchesJsonSchemaInClasspath("response/creditcard/cancellation").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "credit-card"})
+    @Test(enabled = true, groups = {"all", "creditCard"})
     public void creditCardCreditLimitDetailsPost() throws IOException {
         getNewCreditCard();
         JSONObject requestObj = Util.getObject("/request/creditCard/creditLimitDetails.txt");
@@ -96,7 +95,7 @@ public class CreditCardApiTest {
                 .body(matchesJsonSchemaInClasspath("response/creditcard/creditLimitDetails").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "credit-card"})
+    @Test(enabled = true, groups = {"all", "creditCard"})
     public void creditCardLimitDecreasePost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -107,7 +106,7 @@ public class CreditCardApiTest {
                 .body(matchesJsonSchemaInClasspath("response/creditcard/limitDecrease").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "credit-card"})
+    @Test(enabled = true, groups = {"all", "creditCard"})
     public void creditCardLimitIncreasePost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -118,7 +117,7 @@ public class CreditCardApiTest {
                 .body(matchesJsonSchemaInClasspath("response/creditcard/limitIncrease").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "credit-card"})
+    @Test(enabled = true, groups = {"all", "creditCard"})
     public void creditCardLossReportingPost() throws IOException {
         getNewCreditCard();
         JSONObject requestObj = Util.getObject("/request/creditCard/lossReporting.txt");
@@ -132,7 +131,7 @@ public class CreditCardApiTest {
                 .body(matchesJsonSchemaInClasspath("response/creditcard/lossReporting").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "credit-card"})
+    @Test(enabled = true, groups = {"all", "creditCard"})
     public void creditCardNumberValidationPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -146,7 +145,7 @@ public class CreditCardApiTest {
     /**
      * @credit-card-payment
      */
-    @Test(enabled = true, groups = {"all", "credit-card-payment"})
+    @Test(enabled = true, groups = {"all", "creditCard"})
     public void creditCardPaymentCreditCardRepeymentPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -157,7 +156,7 @@ public class CreditCardApiTest {
                 .body(matchesJsonSchemaInClasspath("response/creditCard/creditCardRepayment").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "credit-card-payment"})
+    @Test(enabled = true, groups = {"all", "creditCard"})
     public void creditCardPaymentOutstandingPaymentPost() throws IOException {
         getNewCreditCard();
         JSONObject requestObj = Util.getObject("/request/creditCard/outstandingPayment.txt");
@@ -174,7 +173,7 @@ public class CreditCardApiTest {
     /**
      * @credit-card-rewards
      */
-    @Test(enabled = true, groups = {"all", "credit-card-rewards"})
+    @Test(enabled = true, groups = {"all", "creditCard"})
     public void creditCardPaymentProductEnquiryPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -185,7 +184,7 @@ public class CreditCardApiTest {
                 .body(matchesJsonSchemaInClasspath("response/creditCard/productEnquiry").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "credit-card-rewards"})
+    @Test(enabled = true, groups = {"all", "creditCard"})
     public void creditCardPaymentRedemptionPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -196,7 +195,7 @@ public class CreditCardApiTest {
                 .body(matchesJsonSchemaInClasspath("response/creditCard/redemption").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "credit-card-rewards"})
+    @Test(enabled = true, groups = {"all", "creditCard"})
     public void creditCardPaymentRedemptionHistoryPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -207,7 +206,7 @@ public class CreditCardApiTest {
                 .body(matchesJsonSchemaInClasspath("response/creditCard/redemptionHistory").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "credit-card-rewards"})
+    @Test(enabled = true, groups = {"all", "creditCard"})
     public void creditCardPaymentTotalPointPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -221,7 +220,7 @@ public class CreditCardApiTest {
     /**
      * @credit-card-transaction
      */
-    @Test(enabled = true, groups = {"all", "credit-card-transaction"})
+    @Test(enabled = true, groups = {"all", "creditCard"})
     public void creditCardTransactiontRansactionDetailsPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -232,7 +231,7 @@ public class CreditCardApiTest {
                 .body(matchesJsonSchemaInClasspath("response/creditCard/transactionDetails").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "credit-card-transaction"})
+    @Test(enabled = true, groups = {"all", "creditCard"})
     public void creditCardTransactiontTransactionPostingPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -246,7 +245,7 @@ public class CreditCardApiTest {
     /**
      * @merchant
      */
-    @Test(enabled = true, groups = {"all", "merchant"})
+    @Test(enabled = true, groups = {"all", "creditCard"})
     public void merchantMerchantEnquiryGet() throws IOException {
         String merchantNumber = "HK0001001000009";
         given()
@@ -257,7 +256,7 @@ public class CreditCardApiTest {
                 .body(matchesJsonSchemaInClasspath("response/creditCard/merchantEnquiry").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "merchant"})
+    @Test(enabled = true, groups = {"all", "creditCard"})
     public void merchantTransactionsPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -271,7 +270,7 @@ public class CreditCardApiTest {
     /**
      * @vpoint
      */
-    @Test(enabled = true, groups = {"all", "vpoint"})
+    @Test(enabled = true, groups = {"all", "creditCard"})
     public void vpointMerchantCategoryPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -282,7 +281,7 @@ public class CreditCardApiTest {
                 .body(matchesJsonSchemaInClasspath("response/creditCard/merchantCategory").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "vpoint"})
+    @Test(enabled = true, groups = {"all", "creditCard"})
     public void vpointNumberPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))

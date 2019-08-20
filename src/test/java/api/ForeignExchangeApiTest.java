@@ -8,12 +8,11 @@ import model.DataVO;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import static com.github.fge.jsonschema.SchemaVersion.DRAFTV4;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-
 import java.io.IOException;
 
+import static com.github.fge.jsonschema.SchemaVersion.DRAFTV4;
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class ForeignExchangeApiTest {
     static JsonSchemaFactory jsonschemaemaFactory = null;
@@ -24,7 +23,7 @@ public class ForeignExchangeApiTest {
         data.setToken("eyJhbGciOiJIUzUxMiIsInppcCI6IkRFRiJ9.eNo8y00OwiAQhuG7zNoFkBLUpbqwadI7ADNWEn4aWozGeHchNs7yme99A9KDfJop9xc4gkTaG6XtTQrRCWEPhMKojhnDLVdKwg5sKnHNr3NCqsF1aORJZxenzRhjvKrJOtr73xr5NLk46tBkdqGlZVlToDyWYCj_hmy7Viw64ik9e6wv-HwBAAD__w.alc0ibAbJotnPxSQL2wtt9Qo8h0YYzl4WkxOK65PnGy1fK4SDmNRRVEohqOya_K7qOXJOt5Cjdm10cejK3PViA");
     }
 
-    @BeforeClass(groups = {"all"})
+    @BeforeClass(groups = {"all", "foreign-exchange"})
     public static void setUp() {
         RestAssured.baseURI = "http://3.130.122.199:8086/foreignexchange/";
         jsonschemaemaFactory = JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV4).freeze()).freeze();

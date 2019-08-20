@@ -2,27 +2,14 @@ package api;
 
 import com.github.fge.jsonschema.cfg.ValidationConfiguration;
 import com.github.fge.jsonschema.main.JsonSchemaFactory;
-import common.JsonSchemaUtils;
+import common.Util;
 import io.restassured.RestAssured;
 import model.DataVO;
-import common.Util;
 import net.sf.json.JSONObject;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
 
 import static com.github.fge.jsonschema.SchemaVersion.DRAFTV4;
 import static io.restassured.RestAssured.given;
@@ -39,16 +26,16 @@ public class DepositApiTest {
         data.setMessageid("006f7113e5fa48559549c4dfe74e2cd6");
     }
 
-    @BeforeClass(groups = {"all"})
+    @BeforeClass(groups = {"all", "deposit"})
     public void setUp() {
-        RestAssured.baseURI = "http://3.130.122.199/8086/deposit/";
+        RestAssured.baseURI = "http://3.130.122.199:8086/deposit/";
         jsonschemaemaFactory = JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV4).freeze()).freeze();
     }
 
     /***
      * @account-enquiry
      */
-    @Test(enabled = true, groups = {"all", "account-enquiry"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositAccountEnquiryAccountDetailsGet() throws IOException {
         String accountNumber = "HK720001001000000001001";
         given()
@@ -59,7 +46,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/accountDetails").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "account-enquiry"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositAccountEnquiryPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -70,7 +57,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/accountNumberValidation").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "account-enquiry"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositAccountEnquiryAllAccountGet() {
         String customerNumber = "001000000001";
         given()
@@ -84,7 +71,7 @@ public class DepositApiTest {
     /**
      * @account-maintenance
      */
-    @Test(enabled = true, groups = {"all", "account-maintenance"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositAccountMaintenanceAccountClosureGet() {
         String accountNumber = "HK920001001000006239002";
         given()
@@ -98,7 +85,7 @@ public class DepositApiTest {
     /**
      * @account-opening
      */
-    @Test(enabled = true, groups = {"all", "account-opening"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositAccountOpeningAccountCreationPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -109,7 +96,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/accountCreation").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "account-opening"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositCurrentAccountOpeningPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -120,7 +107,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/currentAccountOpening").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "account-opening"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositFeAccountOpeningPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -131,7 +118,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/feAccountOpening").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "account-opening"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositMetAccountOpeningPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -142,7 +129,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/metAccountOpening").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "account-opening"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositSavingAccountOpeningPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -153,7 +140,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/savingAccountOpening").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "account-opening"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositTdAccountOpeningPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -167,7 +154,7 @@ public class DepositApiTest {
     /**
      * @customer-maintenance
      */
-    @Test(enabled = true, groups = {"all", "customer-maintenance"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositCusMainCustContactInfoUpdatePost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -178,7 +165,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/custContactInfoUpdate").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "customer-maintenance"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositCusMainCustomerCreationPost() throws IOException {
         JSONObject requestObj = Util.getObject("/request/deposit/customerCreation.txt");
         requestObj.put("customerID", "U" + Util.getRandomCustomerId() + "(1)");
@@ -196,7 +183,7 @@ public class DepositApiTest {
      *
      * @TermDeposit
      */
-    @Test(enabled = true, groups = {"all", "TermDeposit"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositTermDepositAllTermDepositGet() throws IOException {
         String customerNumber = "001000000001";
         given()
@@ -207,7 +194,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/allTermDeposit").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "TermDeposit"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositTermDepositAllEnquiryCustomerNumberGet() {
         String accountNumber = "HK760001001000000005100";
         given()
@@ -218,7 +205,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/termDeposit").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "TermDeposit"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositTermDepositTermDepositApplicationPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -229,7 +216,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/termDepositApplication").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "TermDeposit", "error"})
+    @Test(enabled = true, groups = {"all", "deposit", "error"})
     public void depositTermDepositTermDepositDrawDownPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -240,7 +227,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/termDepositDrawDown").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "TermDeposit"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositTermDepositTermDepositEnquiryPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -251,7 +238,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/termDepositEnquiry").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "TermDeposit", "error"})
+    @Test(enabled = true, groups = {"all", "deposit", "error"})
     public void depositTermDepositTermDepositRenewalPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -265,7 +252,7 @@ public class DepositApiTest {
     /**
      * @Transaction
      */
-    @Test(enabled = true, groups = {"all", "Transaction"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositTransactionChequeBookCreationPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -276,7 +263,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/chequeBookCreation").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "Transaction"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositTransactionDepositPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -287,7 +274,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/deposit").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "Transaction"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositTransactionTransferPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -298,7 +285,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/transfer").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "Transaction"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositTransactionWithdrawalPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -313,7 +300,7 @@ public class DepositApiTest {
      * @Transaction History
      */
 
-    @Test(enabled = true, groups = {"all", "Transaction History", "error"})
+    @Test(enabled = true, groups = {"all", "deposit", "error"})
     public void depositTransactionLogEnquiryPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -327,7 +314,7 @@ public class DepositApiTest {
     /**
      * @Vaccount
      */
-    @Test(enabled = true, groups = {"all", "Vaccount"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositVaccountAccountBalancePost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -338,7 +325,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/accountBalance").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "Vaccount"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositVaccountAccountNumberExistsPost() throws IOException {
         String accountNumber = "HK720001001000000001001";
         given()
@@ -349,7 +336,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/accountNumberExists").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "Vaccount"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositVaccountAmountFormatPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -360,7 +347,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/amountFormat").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "Vaccount"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositVaccountAssociatedAccountsPost() throws IOException {
         String accountNumber = "HK720001001000000001001";
         given()
@@ -371,7 +358,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/associatedAccounts").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "Vaccount"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositVaccountCurAccountTypePost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -382,7 +369,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/curAccountType").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "Vaccount"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositVaccountCurrencyGet() throws IOException {
         String currency = "HKD";
         given()
@@ -393,7 +380,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/currency").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "Vaccount"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositVaccountFexAccountTypePost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -404,7 +391,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/fexAccountType").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "Vaccount"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositVaccountFundAccountTypePost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -415,7 +402,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/fundAccountType").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "Vaccount"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositVaccountMetAccountTypePost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -426,7 +413,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/metAccountType").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "Vaccount"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositVaccountSavOrCurTypePost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -437,7 +424,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/savOrCurType").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "Vaccount"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositVaccountStockAccountTypePost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -448,7 +435,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/stockAccountType").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "Vaccount"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositVaccountTdAccountTypePost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -462,7 +449,7 @@ public class DepositApiTest {
     /**
      * @Vcustomer
      */
-    @Test(enabled = true, groups = {"all", "Vcustomer"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositVcustomerEmailFormatPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -473,7 +460,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/emailFormat").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "Vcustomer"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositVcustomerExistingCustomerGet() throws IOException {
         String customerID = "U735535(9)";
         given()
@@ -484,7 +471,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/existingCustomer").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "Vcustomer"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositVcustomerIdFormatGet() {
         String customerID = "U735535(9)";
         given()
@@ -495,7 +482,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/idFormat").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "Vcustomer"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositVcustomerPhoneNumberFormatGet() {
         String phone = "64657884";
         given()
@@ -507,7 +494,7 @@ public class DepositApiTest {
     }
 
 
-    @Test(enabled = true, groups = {"all", "Vcustomer"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositVtermDepositContractPeriodGet() {
         String period = "1day";
         given()
@@ -518,7 +505,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/contractPeriod").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "Vcustomer"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositVtermDepositTdNumberExistsGet() {
         String tdnumber = "000000001";
         given()
@@ -529,7 +516,7 @@ public class DepositApiTest {
                 .body(matchesJsonSchemaInClasspath("response/deposit/tdNumberExists").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "Vcustomer"})
+    @Test(enabled = true, groups = {"all", "deposit"})
     public void depositVtransactionTransTypeGet() {
         String transtype = "0001";
         given()

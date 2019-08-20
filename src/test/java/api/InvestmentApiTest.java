@@ -2,23 +2,11 @@ package api;
 
 import com.github.fge.jsonschema.cfg.ValidationConfiguration;
 import com.github.fge.jsonschema.main.JsonSchemaFactory;
-import com.google.gson.JsonObject;
-import common.JsonSchemaUtils;
 import common.Util;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import model.DataVO;
 import net.sf.json.JSONObject;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
-import org.joda.time.DateTime;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -38,7 +26,7 @@ public class InvestmentApiTest {
         data.setMessageid("006f7113e5fa48559549c4dfe74e2cd6");
     }
 
-    @BeforeClass(groups = {"all"})
+    @BeforeClass(groups = {"all","investment"})
     public void setUp() {
         RestAssured.baseURI = "http://3.130.122.199:8086/investment/";
         jsonschemaemaFactory = JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV4).freeze()).freeze();
@@ -48,7 +36,7 @@ public class InvestmentApiTest {
      * @mutual-fund
      **/
 
-    @Test(enabled = true, groups = {"all", "mutual-fund"})
+    @Test(enabled = true, groups = {"all","investment"})
     public void investmentFundAccountOpeningPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -59,7 +47,7 @@ public class InvestmentApiTest {
                 .body(matchesJsonSchemaInClasspath("response/investment/fundAccountOpening").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "mutual-fund"})
+    @Test(enabled = true, groups = {"all", "investment"})
     public void investmentHoldingEnquiryPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -70,7 +58,7 @@ public class InvestmentApiTest {
                 .body(matchesJsonSchemaInClasspath("response/investment/holdingEnquiry").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "mutual-fund"})
+    @Test(enabled = true, groups = {"all", "investment"})
     public void investmentRedemptionPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -82,7 +70,7 @@ public class InvestmentApiTest {
     }
 
 
-    @Test(enabled = true, groups = {"all", "mutual-fund"})
+    @Test(enabled = true, groups = {"all", "investment"})
     public void investmentSubscriptionPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -97,7 +85,7 @@ public class InvestmentApiTest {
      * @order
      */
 
-    @Test(enabled = true, groups = {"all", "order"}, dependsOnMethods = "investmentOrderInfoUpdatePost")
+    @Test(enabled = true, groups = {"all", "investment"}, dependsOnMethods = "investmentOrderInfoUpdatePost")
     public void investmentCancellationPost() throws IOException {
         JSONObject jsonObject = Util.getObject("/request/investment/cancellation.txt");
         jsonObject.put("id", data.getOderId());
@@ -110,7 +98,7 @@ public class InvestmentApiTest {
                 .body(matchesJsonSchemaInClasspath("response/investment/cancellation").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "order"})
+    @Test(enabled = true, groups = {"all", "investment"})
     public void investmentOrderDetailRetrievalsByIdPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -122,7 +110,7 @@ public class InvestmentApiTest {
     }
 
 
-    @Test(enabled = true, groups = {"all", "order"}, dependsOnMethods = "investmentOrderRetrievalPost")
+    @Test(enabled = true, groups = {"all", "investment"}, dependsOnMethods = "investmentOrderRetrievalPost")
     public void investmentOrderInfoUpdatePost() throws IOException {
         JSONObject jsonObject = Util.getObject("/request/investment/orderInfoUpdate.txt");
         jsonObject.put("id", data.getOderId());
@@ -136,7 +124,7 @@ public class InvestmentApiTest {
                 .body(matchesJsonSchemaInClasspath("response/investment/orderInfoUpdate").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "order"}, dependsOnMethods = "investmentOrderPlacingPost")
+    @Test(enabled = true, groups = {"all", "investment"}, dependsOnMethods = "investmentOrderPlacingPost")
     public void investmentOrderRetrievalPost() throws IOException {
         Response response = given()
                 .headers(Util.setHeader(data))
@@ -164,7 +152,7 @@ public class InvestmentApiTest {
     /**
      * @stock Stock
      */
-    @Test(enabled = true, groups = {"all", "stock"})
+    @Test(enabled = true, groups = {"all", "investment"})
     public void investmentOrderPlacingPost() throws IOException {
         JSONObject jsonObject = Util.getObject("/request/investment/orderPlacing.txt");
         jsonObject.put("expiryDate", (System.currentTimeMillis() + 5 * 60 * 1000));
@@ -177,7 +165,7 @@ public class InvestmentApiTest {
                 .body(matchesJsonSchemaInClasspath("response/investment/orderPlacing").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "stock"})
+    @Test(enabled = true, groups = {"all", "investment"})
     public void investmentSettlementAccountUpdatePost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -188,7 +176,7 @@ public class InvestmentApiTest {
                 .body(matchesJsonSchemaInClasspath("response/investment/settlementAccountUpdate").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "stock"})
+    @Test(enabled = true, groups = {"all", "investment"})
     public void investmentStkAccountOpeningPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
@@ -199,7 +187,7 @@ public class InvestmentApiTest {
                 .body(matchesJsonSchemaInClasspath("response/investment/stkAccountOpening").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "stock"})
+    @Test(enabled = true, groups = {"all", "investment"})
     public void investmentStockListGet() {
         given()
                 .headers(Util.setHeader(data))
@@ -212,7 +200,7 @@ public class InvestmentApiTest {
     /**
      * @v-mutual
      */
-    @Test(enabled = true, groups = {"all", "v-mutual"})
+    @Test(enabled = true, groups = {"all", "investment"})
     public void investmentFundQuotationGet() {
         String fundcode = "U000001";
         given()
@@ -223,7 +211,7 @@ public class InvestmentApiTest {
                 .body(matchesJsonSchemaInClasspath("response/investment/fundQuotation").using(jsonschemaemaFactory));
     }
 
-    @Test(enabled = true, groups = {"all", "v-mutual"})
+    @Test(enabled = true, groups = {"all", "investment"})
     public void investmentStockQuotationPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))
