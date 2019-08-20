@@ -64,12 +64,16 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.19.1</version>
                 <configuration>
-                    <forkMode>never</forkMode>
+                    <forkMode>once</forkMode>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                     <suiteXmlFiles>
                         <suiteXmlFile>${project.basedir}/src/test/resources/testNG/${xmlFileName}</suiteXmlFile>
                     </suiteXmlFiles>
+<!--                    <includes>-->
+<!--                        <include>**/*Tests.java</include>-->
+<!--                    </includes>-->
                 </configuration>
+
             </plugin>
         </plugins>
     </build>
