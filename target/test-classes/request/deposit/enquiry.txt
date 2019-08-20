@@ -1,6 +1,0 @@
-{
-  "accountnumber": "HK720001001000000001001",
-  "transFromDate": 1518537600000,
-  "transToDate": 1561478400000,
-  "trantype": "0004"
-}

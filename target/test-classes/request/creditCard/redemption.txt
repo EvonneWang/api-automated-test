@@ -1,5 +1,0 @@
-{
-  "amount": 2,
-  "creditcardnumber": 5000010000000024,
-  "productcode": "00001"
-}

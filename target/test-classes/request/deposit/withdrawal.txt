@@ -1,5 +1,0 @@
-{
-  "accountNumber": "HK720001001000000001001",
-  "currencycode": "HKD",
-  "withDrawalAmount": 10000
-}
