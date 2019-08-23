@@ -8,6 +8,7 @@ import io.restassured.response.Response;
 import model.DataVO;
 import net.sf.json.JSONObject;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -26,9 +27,10 @@ public class InvestmentApiTest {
         data.setMessageid("006f7113e5fa48559549c4dfe74e2cd6");
     }
 
-    @BeforeClass(groups = {"all","investment"})
-    public void setUp() {
-        RestAssured.baseURI = "http://3.130.122.199:8086/investment/";
+    @Parameters({"env"})
+    @BeforeClass(groups = {"all", "investment"})
+    public void setUp(String env) {
+        RestAssured.baseURI = env + "investment/";
         jsonschemaemaFactory = JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV4).freeze()).freeze();
     }
 
@@ -36,7 +38,7 @@ public class InvestmentApiTest {
      * @mutual-fund
      **/
 
-    @Test(enabled = true, groups = {"all","investment"})
+    @Test(enabled = true, groups = {"all", "investment"})
     public void investmentFundAccountOpeningPost() throws IOException {
         given()
                 .headers(Util.setHeader(data))

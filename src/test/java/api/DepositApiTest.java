@@ -7,6 +7,7 @@ import io.restassured.RestAssured;
 import model.DataVO;
 import net.sf.json.JSONObject;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -26,9 +27,10 @@ public class DepositApiTest {
         data.setMessageid("006f7113e5fa48559549c4dfe74e2cd6");
     }
 
+    @Parameters({"env"})
     @BeforeClass(groups = {"all", "deposit"})
-    public void setUp() {
-        RestAssured.baseURI = "http://3.130.122.199:8086/deposit/";
+    public void setUp(String env) {
+        RestAssured.baseURI = env + "deposit/";
         jsonschemaemaFactory = JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV4).freeze()).freeze();
     }
 

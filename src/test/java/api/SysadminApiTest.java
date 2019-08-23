@@ -7,6 +7,7 @@ import io.restassured.RestAssured;
 import model.DataVO;
 import net.sf.json.JSONObject;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -21,9 +22,10 @@ public class SysadminApiTest {
     DataVO data = new DataVO();
     int port;
 
+    @Parameters({"env"})
     @BeforeClass(groups = {"all", "sysadmin"})
-    public void setUp() {
-        RestAssured.baseURI = "http://3.130.122.199:8086/sysadmin/";
+    public void setUp(String env) {
+        RestAssured.baseURI = env + "sysadmin/";
         jsonschemaemaFactory = JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV4).freeze()).freeze();
     }
 

@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7071afc0-d401-4da3-8d9a-8bcbbcb91210" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/CreditCardApiTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/CreditCardApiTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/DepositApiTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/DepositApiTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/ForeignExchangeApiTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/ForeignExchangeApiTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/InvestmentApiTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/InvestmentApiTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/LoanApiTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/LoanApiTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/SysadminApiTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/SysadminApiTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -25,8 +30,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/api/ForeignExchangeApiTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="20" selection-start-line="20" selection-end-line="20" />
+            <state relative-caret-position="399">
+              <caret line="29" column="37" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -38,7 +43,7 @@
         <entry file="file://$PROJECT_DIR$/src/test/java/api/InvestmentApiTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="304">
-              <caret line="30" column="49" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
+              <caret line="32" column="37" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#investmentStockQuotationPost#0;class#InvestmentApiTest#0" />
@@ -47,20 +52,44 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="62" column="44" selection-start-line="62" selection-start-column="44" selection-end-line="62" selection-end-column="44" />
+            <state relative-caret-position="404">
+              <caret line="74" column="39" selection-start-line="74" selection-start-column="39" selection-end-line="74" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/api/CreditCardApiTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="38" column="5" lean-forward="true" selection-start-line="33" selection-start-column="3" selection-end-line="38" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/api/CreditCardApiTest.java">
+        <entry file="file://$PROJECT_DIR$/src/test/java/api/DefaultApiTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="64" column="23" selection-start-line="64" selection-start-column="23" selection-end-line="64" selection-end-column="23" />
+            <state relative-caret-position="760">
+              <caret line="74" selection-start-line="74" selection-end-line="74" />
+              <folding>
+                <element signature="method#authorityControllerAppDockerForDeveloperPost#0;class#DefaultApiTest#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/api/LoanApiTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="304">
+              <caret line="32" column="37" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -68,8 +97,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/api/DepositApiTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-19">
-              <caret line="30" column="50" selection-start-line="30" selection-start-column="50" selection-end-line="30" selection-end-column="50" />
+            <state relative-caret-position="323">
+              <caret line="32" column="47" selection-start-line="32" selection-start-column="47" selection-end-line="32" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -77,8 +106,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/api/SysadminApiTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="798">
-              <caret line="55" column="5" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
+            <state relative-caret-position="475">
+              <caret line="27" column="37" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -89,8 +118,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/resources/testNG/testNG.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
+            <state relative-caret-position="418">
+              <caret line="22" selection-start-line="22" selection-end-line="22" />
             </state>
           </provider>
         </entry>
@@ -190,13 +219,13 @@
         <option value="$PROJECT_DIR$/src/test/resources/response/sysadmin/loginIn" />
         <option value="$PROJECT_DIR$/src/test/resources/testNG/testNG.xml" />
         <option value="$PROJECT_DIR$/testNG.xml" />
+        <option value="$PROJECT_DIR$/src/test/java/common/Util.java" />
+        <option value="$PROJECT_DIR$/src/test/java/api/CreditCardApiTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/api/DepositApiTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/api/ForeignExchangeApiTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/api/InvestmentApiTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/api/LoanApiTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/api/SysadminApiTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/api/CreditCardApiTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/common/Util.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
@@ -210,6 +239,8 @@
     <option name="importingSettings">
       <MavenImportingSettings>
         <option name="importAutomatically" value="true" />
+        <option name="jdkForImporter" value="#JAVA_HOME" />
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
       </MavenImportingSettings>
     </option>
   </component>
@@ -283,6 +314,29 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="api-automated-test" type="b2602c69:ProjectViewProjectNode" />
+              <item name="api-automated-test" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="api-automated-test" type="b2602c69:ProjectViewProjectNode" />
+              <item name="api-automated-test" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="api-automated-test" type="b2602c69:ProjectViewProjectNode" />
+              <item name="api-automated-test" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="testNG" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -303,7 +357,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.importing" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -475,6 +529,8 @@
       <workItem from="1566180186480" duration="1452000" />
       <workItem from="1566182954009" duration="9724000" />
       <workItem from="1566269954999" duration="3771000" />
+      <workItem from="1566351695132" duration="79000" />
+      <workItem from="1566542042622" duration="654000" />
     </task>
     <servers />
   </component>
@@ -511,7 +567,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="394818000" />
+    <option name="totallyTimeSpent" value="398960000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -524,8 +580,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20174263" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20710456" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -535,7 +592,7 @@
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.35431919" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.57917887" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.19501466" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49932975" weight="0.44948757" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -545,13 +602,13 @@
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50067025" side_tool="true" weight="0.44802344" />
       <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.49731904" weight="0.38506588" />
-      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.49932975" visible="true" weight="0.4222874" />
+      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.49932975" weight="0.39149562" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Theme Preview" order="4" />
-      <window_info anchor="right" id="Maven" order="5" visible="true" weight="0.25938338" />
+      <window_info anchor="right" id="Maven" order="5" weight="0.25938338" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Database" order="8" />
@@ -577,19 +634,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/api/LoanApiTest.java</url>
-          <line>112</line>
+          <line>114</line>
           <properties />
           <option name="timeStamp" value="219" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/api/LoanApiTest.java</url>
-          <line>119</line>
+          <line>121</line>
           <properties />
           <option name="timeStamp" value="220" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/api/SysadminApiTest.java</url>
-          <line>145</line>
+          <line>147</line>
           <properties />
           <option name="timeStamp" value="233" />
         </line-breakpoint>
@@ -969,44 +1026,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/testNG/testNG.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/api/apiTests.java" />
     <entry file="file://$PROJECT_DIR$/src/test/java/api/DefaultApiTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="90" column="33" selection-start-line="90" selection-start-column="33" selection-end-line="90" selection-end-column="33" />
+        <state relative-caret-position="760">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
           <folding>
             <element signature="method#authorityControllerAppDockerForDeveloperPost#0;class#DefaultApiTest#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/api/apiTests.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/api/DepositApiTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        <state relative-caret-position="323">
+          <caret line="32" column="47" selection-start-line="32" selection-start-column="47" selection-end-line="32" selection-end-column="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/api/SysadminApiTest.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/api/ForeignExchangeApiTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="55" column="5" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/api/LoanApiTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="34" column="6" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
+        <state relative-caret-position="399">
+          <caret line="29" column="37" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1016,7 +1057,7 @@
     <entry file="file://$PROJECT_DIR$/src/test/java/api/InvestmentApiTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
-          <caret line="30" column="49" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
+          <caret line="32" column="37" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#investmentStockQuotationPost#0;class#InvestmentApiTest#0" />
@@ -1024,34 +1065,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/api/ForeignExchangeApiTest.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/api/LoanApiTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        <state relative-caret-position="304">
+          <caret line="32" column="37" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/api/DepositApiTest.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/api/SysadminApiTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-19">
-          <caret line="30" column="50" selection-start-line="30" selection-start-column="50" selection-end-line="30" selection-end-column="50" />
+        <state relative-caret-position="475">
+          <caret line="27" column="37" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/api/CreditCardApiTest.java">
+    <entry file="file://$PROJECT_DIR$/src/test/resources/testNG/testNG.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="64" column="23" selection-start-line="64" selection-start-column="23" selection-end-line="64" selection-end-column="23" />
+        <state relative-caret-position="418">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="62" column="44" selection-start-line="62" selection-start-column="44" selection-end-line="62" selection-end-column="44" />
+        <state relative-caret-position="404">
+          <caret line="74" column="39" selection-start-line="74" selection-start-column="39" selection-end-line="74" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/api/CreditCardApiTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="38" column="5" lean-forward="true" selection-start-line="33" selection-start-column="3" selection-end-line="38" selection-end-column="5" />
         </state>
       </provider>
     </entry>
