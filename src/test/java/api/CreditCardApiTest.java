@@ -66,7 +66,7 @@ public class CreditCardApiTest {
                 .post("creditcard/accountOpening")
                 .then()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("response/creditcard/accountOpening").using(jsonschemaemaFactory));
+                .body(matchesJsonSchemaInClasspath("response/creditCard/accountOpening").using(jsonschemaemaFactory));
     }
 
     @Test(enabled = true, groups = {"all", "creditCard"})
@@ -80,7 +80,7 @@ public class CreditCardApiTest {
                 .post("creditcard/cancellation")
                 .then()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("response/creditcard/cancellation").using(jsonschemaemaFactory));
+                .body(matchesJsonSchemaInClasspath("response/creditCard/cancellation").using(jsonschemaemaFactory));
     }
 
     @Test(enabled = true, groups = {"all", "creditCard"})
@@ -94,7 +94,7 @@ public class CreditCardApiTest {
                 .post("creditcard/creditLimitDetails")
                 .then()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("response/creditcard/creditLimitDetails").using(jsonschemaemaFactory));
+                .body(matchesJsonSchemaInClasspath("response/creditCard/creditLimitDetails").using(jsonschemaemaFactory));
     }
 
     @Test(enabled = true, groups = {"all", "creditCard"})
@@ -105,7 +105,7 @@ public class CreditCardApiTest {
                 .post("creditcard/limitDecrease")
                 .then()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("response/creditcard/limitDecrease").using(jsonschemaemaFactory));
+                .body(matchesJsonSchemaInClasspath("response/creditCard/limitDecrease").using(jsonschemaemaFactory));
     }
 
     @Test(enabled = true, groups = {"all", "creditCard"})
@@ -116,7 +116,7 @@ public class CreditCardApiTest {
                 .post("creditcard/limitIncrease")
                 .then()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("response/creditcard/limitIncrease").using(jsonschemaemaFactory));
+                .body(matchesJsonSchemaInClasspath("response/creditCard/limitIncrease").using(jsonschemaemaFactory));
     }
 
     @Test(enabled = true, groups = {"all", "creditCard"})
@@ -130,7 +130,7 @@ public class CreditCardApiTest {
                 .post("creditcard/lossReporting")
                 .then()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("response/creditcard/lossReporting").using(jsonschemaemaFactory));
+                .body(matchesJsonSchemaInClasspath("response/creditCard/lossReporting").using(jsonschemaemaFactory));
     }
 
     @Test(enabled = true, groups = {"all", "creditCard"})
@@ -141,7 +141,7 @@ public class CreditCardApiTest {
                 .post("creditcard/numberValidation")
                 .then()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("response/creditcard/numberValidation").using(jsonschemaemaFactory));
+                .body(matchesJsonSchemaInClasspath("response/creditCard/numberValidation").using(jsonschemaemaFactory));
     }
 
     /**
