@@ -27,10 +27,10 @@ public class DepositApiTest {
         data.setMessageid("006f7113e5fa48559549c4dfe74e2cd6");
     }
 
-    @Parameters({"env"})
+//    @Parameters({"env"})
     @BeforeClass(groups = {"all", "deposit"})
-    public void setUp(String env) {
-        RestAssured.baseURI = env + "deposit/";
+    public void setUp() {
+        RestAssured.baseURI = "http://3.130.122.199:8086/" + "deposit/";
         jsonschemaemaFactory = JsonSchemaFactory.newBuilder().setValidationConfiguration(ValidationConfiguration.newBuilder().setDefaultVersion(DRAFTV4).freeze()).freeze();
     }
 
