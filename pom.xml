@@ -72,9 +72,10 @@
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
-                    <systemProperties>${env}</systemProperties>
+                    <systemPropertyVariables>
+                        <propertyName>${env}</propertyName>
+                    </systemPropertyVariables>
                 </configuration>
-
             </plugin>
         </plugins>
     </build>
