@@ -80,7 +80,7 @@ public class CreditCardApiTest {
                 .post("creditcard/cancellation")
                 .then()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("response/creditCard/cancellation").using(jsonschemaemaFactory));
+                .body(matchesJsonSchemaInClasspath("response/creditCard/canCellation").using(jsonschemaemaFactory));
     }
 
     @Test(enabled = true, groups = {"all", "creditCard"})
