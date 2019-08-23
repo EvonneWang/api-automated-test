@@ -11,6 +11,7 @@
             <class name="api.SysadminApiTest"/>
         </classes>
     </test>
+    <parameter name="envType" value="${env}"/>
     <listeners>
         <listener class-name="reporter.listener.ExtentTestNGIReporterListener"/>
     </listeners>
